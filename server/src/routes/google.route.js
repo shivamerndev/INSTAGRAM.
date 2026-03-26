@@ -6,16 +6,11 @@ const router = express.Router();
 
 router.post("/google", googleAuth)
 
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-// router.get('/google/callback', passport.authenticate('google', { session: false }));
-
 router.get('/google/callback', passport.authenticate('google', { session: false }), (req, res) => {
     const { id, displayName, photos: [{ value: image }], emails: [{ value: email }] } = req.user;
     console.log({ id, displayName, image, email })
     res.redirect('/api/auth/profile');
-}
-);
+});
 
 router.get('/profile', (req, res) => {
     res.send(`<h1>Shivam Profile</h1><pre>${JSON.stringify(req.user, null, 2)}</pre>`);

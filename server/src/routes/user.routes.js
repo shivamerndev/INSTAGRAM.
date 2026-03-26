@@ -4,13 +4,13 @@ import { registerValidation } from '../validator/user.validator.js';
 
 const router = express.Router();
 
-// POST /api/auth/register
+// POST /api/user/register
 router.post('/register', registerValidation, register);
 
-// POST /api/auth/login
+// POST /api/user/login
 router.post('/login', login);
 
-// POST /api/auth/logout
+// POST /api/user/logout
 router.post('/logout', logout);
 
 export default router;
