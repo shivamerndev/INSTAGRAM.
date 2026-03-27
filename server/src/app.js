@@ -22,4 +22,8 @@ app.use('/api/likes', likesRoutes);
 app.use("/api/auth", googleRoutes)
 
 
+app.use((err, req, res, next) => {
+    res.status(500).json({ message: err.message });
+});
+
 export default app

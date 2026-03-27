@@ -2,21 +2,15 @@ import userModel from "../models/user.model.js"
 
 const registerService = async (data) => {
     const { username, email } = data;
-    let isExist = await userModel.findOne({ $or: [{ username, email }] })
-
-    if (isExist) return { meassage: "User Already Exists.", success: false }
-
+    let isExist = await userModel.findOne({ $or: [{ username }, { email }] })
+    if (isExist) return null;
     return await userModel.create(data)
 }
 
-
 const loginService = async (data) => {
-
-    const { username, email } = data;
-
     return await userModel.findOne({
-        $or: [{ email }, { username }]
-    })
+        $or: [{ email: data }, { username: data }]
+    }).select("+password")
 }
 
 const logoutSerivice = async () => {
