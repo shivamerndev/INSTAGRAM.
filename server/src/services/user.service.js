@@ -13,8 +13,12 @@ const loginService = async (data) => {
     }).select("+password")
 }
 
-const logoutSerivice = async () => {
-    console.log("logout")
+const profileService = async (id) => {
+    return await userModel.findById(id)
 }
 
-export { registerService, loginService, logoutSerivice }
+const logoutSerivice = () => {
+    return { success: true, message: "User Logged Out Successfully." }
+}
+
+export { registerService, loginService, profileService, logoutSerivice }

@@ -1,6 +1,6 @@
 import e from "express";
 import upload from "../config/multer.config.js";
-import userAuth from "../middleware/user.auth.js";
+import {userAuth} from "../middleware/user.auth.js";
 import { createPost } from "../controllers/post.controller.js";
 
 const postRouter = e.Router()

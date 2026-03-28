@@ -70,9 +70,8 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
-
 userSchema.methods.generateToken = async function (data) {
-    return await jwt.sign(data, JWT_SECRET)
+    return await jwt.sign(data, JWT_SECRET,{expiresIn:"5m"})
 }
 
 export default model("User", userSchema)
