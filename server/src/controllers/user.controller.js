@@ -1,7 +1,10 @@
-import { loginService, logoutSerivice, registerService } from "../services/user.service.js"
+import userModel from "../models/user.model.js";
+import { loginService, logoutSerivice, profileService, registerService } from "../services/user.service.js"
 import handleError from "../utils/error.utils.js";
 
+
 /**
+ * @method POST
  * @register - register new user
  * @route - /api/user/register
 */
@@ -23,7 +26,8 @@ const register = handleError(async (req, res) => {
 
 
 /**
- * @register - login user
+ * @method POST
+ * @login - login user
  * @route - /api/user/login
 */
 
@@ -45,11 +49,45 @@ const login = handleError(async (req, res) => {
 })
 
 
-const logout = () => {
+/**
+ * @method POST
+ * @token  create new Access Token
+ * @route  /api/user/refresh-token
+*/
 
-    logoutSerivice()
-    console.log("logout")
+const createAccessToken = handleError(async (res, req) => {
+    const { id } = req.userId;
+    const token = await userModel.generateToken(id)
+    console.log("New Access Token", token)
+})
+
+
+/**
+ * @method GET
+ * @profile - send user's profile
+ * @route - /api/user/profile
+*/
+
+const profile = async (req, res) => {
+    const { id } = req.userId;
+    const user = await profileService(id)
+    if (!user) return res.status(404).json({ success: false, message: "User Not Found" })
+    res.status(200).json({ user, success: true })
 }
 
 
-export { register, login, logout }
+/**
+ * @method POST
+ * @logout - logout the user
+ * @route - /api/user/logout
+*/
+
+const logout = (req, res) => {
+    if (!req.headers.cookie) return res.send("cookie already cleared.");
+    res.clearCookie("token")
+    const response = logoutSerivice()
+    res.status(200).json(response)
+}
+
+
+export { register, login, createAccessToken, profile, logout }
