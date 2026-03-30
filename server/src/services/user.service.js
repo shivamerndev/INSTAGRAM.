@@ -8,8 +8,10 @@ const registerService = async (data) => {
 }
 
 const loginService = async (data) => {
+    const { email, username } = data;
+
     return await userModel.findOne({
-        $or: [{ email: data }, { username: data }]
+        $or: [{ email }, { username }]
     }).select("+password")
 }
 

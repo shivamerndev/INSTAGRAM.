@@ -9,7 +9,8 @@ const client = new ImageKit({
 const getMediaUrl = async (file) => {
 
     const response = await client.files.upload({
-        file: file.buffer.toString('base64'),
+        // file: file.buffer.toString('base64'),
+        file:  ImageKit.toFile(file.buffer,file.originalname),
         fileName: file.originalname,
     });
 

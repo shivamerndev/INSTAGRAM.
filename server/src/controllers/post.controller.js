@@ -1,5 +1,7 @@
 const createPost = (req, res) => {
-    console.log('createPost')
+    const files = req.files;
+    console.log(files)
+    res.send(files)
 }
 
 export { createPost }
