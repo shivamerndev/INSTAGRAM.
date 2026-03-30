@@ -33,9 +33,9 @@ const register = handleError(async (req, res) => {
 
 const login = handleError(async (req, res) => {
 
-    const { password, EmailOrUsername } = req.body;
+    const { password, email, username } = req.body;
 
-    let user = await loginService(EmailOrUsername)
+    let user = await loginService({ email, username })
     if (!user) return res.status(401).json({ success: false, message: "Invalid Credentials" })
 
     const matchPassword = await user.comparePassword(password)
