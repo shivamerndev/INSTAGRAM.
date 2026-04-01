@@ -7,14 +7,13 @@ const client = new ImageKit({
 
 
 const getMediaUrl = async (file) => {
-
     const response = await client.files.upload({
         // file: file.buffer.toString('base64'),
-        file:  ImageKit.toFile(file.buffer,file.originalname),
+        file: await ImageKit.toFile(file.buffer,file.originalname),
         fileName: file.originalname,
     });
 
-    return { url: response.url, posterUrl: imageUrl.url }
+    return { url: response.url, mediaType: file.mimetype.startsWith('image') ? 'image' : 'video' };
 }
 
 export default getMediaUrl;

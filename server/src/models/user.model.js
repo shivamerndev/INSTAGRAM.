@@ -59,6 +59,9 @@ const userSchema = new Schema(
     { timestamps: true }
 );
 
+userSchema.index({ username: "text" }) // for search functionality (full text search)
+
+
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next(); // agar password change nahi hua to skip
     const salt = await bcrypt.genSalt(10);
