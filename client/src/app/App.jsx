@@ -1,10 +1,17 @@
 import { Outlet } from 'react-router-dom'
-import SideNavbar from '../components/SideNav';
+import userAuth from '../hooks/userAuth'
+import { useEffect } from 'react'
 
 const App = () => {
+
+    const { handleGetMe } = userAuth()
+
+    useEffect(() => {
+        handleGetMe()
+    }, [])
+
     return (
         <div className='h-screen flex w-full bg-black text-white'>
-            <SideNavbar />
             <Outlet />
         </div>
     )

@@ -24,7 +24,7 @@ const SideNavbar = () => {
                 </svg>
             </div>
 
-            {NAV_CONFIG.map(({ svg, title }) => <NavLink to={title === "home" ? "/" : title} className={(e) => e.isActive ? "  w-full rounded-md hover:bg-zinc-900  flex items-center px-4 py-1 gap-4 text-white text-base" : "w-full rounded-md hover:bg-zinc-900  flex items-center px-4 py-2 gap-4 my-4 text-white text-base"}>
+            {NAV_CONFIG.map(({ svg, title }) => <NavLink key={title} to={title === "home" ? "/" : title} className={(e) => e.isActive ? "  w-full rounded-md hover:bg-zinc-900  flex items-center px-4 py-1 gap-4 text-white text-base" : "w-full rounded-md hover:bg-zinc-900  flex items-center px-4 py-2 gap-4 my-4 text-white text-base"}>
                 {svg}
                 {hover && <h1 className="capitalize text-base">{title}</h1>}
             </NavLink>)

@@ -1,6 +1,10 @@
-import { loginUser, registerUser } from "../services/auth.service"
+import { useDispatch } from "react-redux"
+import { getMe, loginUser, registerUser } from "../services/auth.service"
+import { setUser } from "../stores/features/auth.slice"
 
 const userAuth = () => {
+
+    const dispatch = useDispatch()
 
     const handleRegister = (data) => {
         registerUser(data)
@@ -15,10 +19,15 @@ const userAuth = () => {
             password: data.password
         }
 
-        await loginUser(payload)
+        let res = await loginUser(payload)
     }
 
-    return { handleRegister, handleLogin }
+    const handleGetMe = async () => {
+        let user = await getMe()
+        dispatch(setUser(user.data.user))
+    }
+
+    return { handleRegister, handleLogin, handleGetMe }
 }
 
 export default userAuth

@@ -10,7 +10,7 @@ const loginUser = handleError((data) => {
 })
 
 const getMe = async () => {
-    return await axios.get("/user/getMe")
+    return await axios.get("/user/profile")
 }
 
 const logout = async () => {

@@ -19,7 +19,7 @@ const Login = () => {
 
 
     return (
-        <div className="relative w-full overflow-hidden bg-zinc-950 text-white">
+        <div className="relative w-full overflow-hidde bg-zinc-950 text-white">
             <div className="pointer-events-none absolute inset-0">
                 <div className="absolute -left-32 -top-32 h-80 w-80 rounded-full bg-fuchsia-500/20 blur-3xl" />
                 <div className="absolute -right-32 top-32 h-80 w-80 rounded-full bg-cyan-400/15 blur-3xl" />
