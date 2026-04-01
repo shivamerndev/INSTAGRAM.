@@ -1,65 +1,12 @@
+import { useState } from "react";
+import { Heart, MessageCircle, Share2, Bookmark } from "lucide-react";
 
-
-import React, { useState } from "react";
-
-function timeAgo(dateString) {
-    const now = new Date();
-    const date = new Date(dateString);
-    const seconds = Math.floor((now - date) / 1000);
-    if (seconds < 60) return `${seconds} seconds ago`;
-    const minutes = Math.floor(seconds / 60);
-    if (minutes < 60) return `${minutes} minutes ago`;
-    const hours = Math.floor(minutes / 60);
-    if (hours < 24) return `${hours} hours ago`;
-    const days = Math.floor(hours / 24);
-    if (days < 7) return `${days} days ago`;
-    return date.toLocaleDateString();
-}
-
-const PostCard = () => {
-    
-    let post = {
-        "_id": "69cce1992678dbe2518d9d82",
-        "caption": "Ram Siya Ram.2",
-        "media": [
-            {
-                "url": "https://ik.imagekit.io/shivamerndev/Js_battle_vcWr17Fu4.png",
-                "mediaType": "image",
-                "_id": "69cce1992678dbe2518d9d83"
-            },
-            {
-                "url": "https://ik.imagekit.io/shivamerndev/profile_RPMMYvSx1.jpeg",
-                "mediaType": "image",
-                "_id": "69cce1992678dbe2518d9d84"
-            },
-            {
-                "url": "https://ik.imagekit.io/shivamerndev/wp3366737-how-to-open-wallpaper-images_wPCvwD2Pz.png",
-                "mediaType": "image",
-                "_id": "69cce1992678dbe2518d9d85"
-            }
-        ],
-        "user": {
-            "_id": "69c57bea4515f342c44abd8c",
-            "fullName": "Shivam Kumar",
-            "username": "shivam81",
-            "email": "s@s.ins",
-            "bio": "",
-            "profileImage": "",
-            "isPrivate": false,
-            "createdAt": "2026-03-26T18:33:14.764Z",
-            "updatedAt": "2026-03-26T18:33:14.764Z",
-            "__v": 0
-        },
-        "likeCount": 0,
-        "commentNumber": 0,
-        "createdAt": "2026-04-01T09:12:57.948Z",
-        "updatedAt": "2026-04-01T09:12:57.948Z",
-        "__v": 0
-    }
+const PostCard = ({ post }) => {
 
     const [mediaIndex, setMediaIndex] = useState(0);
+
     const { user, caption, media, likeCount, commentNumber, createdAt } = post;
-    const profileImage = user.profileImage || "https://ui-avatars.com/api/?name=" + encodeURIComponent(user.fullName);
+    const profileImage = user.profileImage || "https://imgs.search.brave.com/veKl8ET9WhanlBbihrKWBEkRfga_K4vtJ2gNSmAM1iE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/dmVjdG9yc3RvY2su/Y29tL2kvNTAwcC80/MS85MS9hdmF0YXIt/ZGVmYXVsdC11c2Vy/LXByb2ZpbGUtaWNv/bi1zaW1wbGUtZmxh/dC1ncmV5LXZlY3Rv/ci01NzIzNDE5MS5q/cGc"
 
     const handlePrev = (e) => {
         e.stopPropagation();
@@ -69,6 +16,22 @@ const PostCard = () => {
         e.stopPropagation();
         setMediaIndex((prev) => (prev === media.length - 1 ? 0 : prev + 1));
     };
+
+    function timeAgo(dateString) {
+        const now = new Date();
+        const date = new Date(dateString);
+
+        const seconds = Math.floor((now - date) / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+
+        if (seconds < 60) return `${seconds} seconds ago`;
+        if (minutes < 60) return `${minutes} minutes ago`;
+        if (hours < 24) return `${hours} hours ago`;
+        if (days < 7) return `${days} days ago`;
+        return date.toLocaleDateString();
+    }
 
     return (
         <article className="bg-[#131313] rounded-xl w-10/12 mx-auto shadow-2xl border border-white/5">
@@ -102,7 +65,7 @@ const PostCard = () => {
                     </button>
                 )}
                 <img
-                    className="max-h-[400px] w-auto max-w-full object-contain transition-transform duration-700 group-hover:scale-105 mx-auto"
+                    className="max-h-100 w-auto max-w-full object-contain transition-transform duration-700 group-hover:scale-105 mx-auto"
                     src={media[mediaIndex].url}
                     alt={`Post media ${mediaIndex + 1}`}
                 />
@@ -133,28 +96,20 @@ const PostCard = () => {
                     <div className="flex items-center gap-4">
                         <button className="text-white hover:text-[#c799ff] transition-colors">
                             {/* Like Icon */}
-                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                            </svg>
+                            <Heart size={24} />
                         </button>
                         <button className="text-white hover:text-[#c799ff] transition-colors">
                             {/* Comment Icon */}
-                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                            </svg>
+                            <MessageCircle size={24} />
                         </button>
                         <button className="text-white hover:text-[#c799ff] transition-colors">
                             {/* Share Icon */}
-                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                            </svg>
+                            <Share2 size={24} />
                         </button>
                     </div>
                     <button className="text-white hover:text-[#c799ff] transition-colors">
                         {/* Save Icon */}
-                        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                        </svg>
+                        <Bookmark size={24} />
                     </button>
                 </div>
 
