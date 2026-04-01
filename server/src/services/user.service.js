@@ -23,4 +23,8 @@ const logoutSerivice = () => {
     return { success: true, message: "User Logged Out Successfully." }
 }
 
-export { registerService, loginService, profileService, logoutSerivice }
+const searchUserService = async (query) => {
+    return await userModel.find({ $text: { $search: query } }).select("fullName username profileImage")
+}
+
+export { registerService, loginService, profileService, logoutSerivice, searchUserService }

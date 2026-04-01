@@ -1,5 +1,5 @@
 import userModel from "../models/user.model.js";
-import { loginService, logoutSerivice, profileService, registerService } from "../services/user.service.js"
+import { loginService, logoutSerivice, profileService, registerService, searchUserService } from "../services/user.service.js"
 import handleError from "../utils/error.utils.js";
 
 
@@ -90,4 +90,17 @@ const logout = (req, res) => {
 }
 
 
-export { register, login, createAccessToken, profile, logout }
+/**
+ * @method GET
+ * @params text - search query
+ * @route /api/user/search?text=
+*/
+
+const searchUser = async (req, res) => {
+    const { text } = req.query;
+    if (!text) return res.status(400).json({ success: false, message: "Search Query Missing." })
+    const users = await searchUserService(text)
+    res.status(200).json({ users, success: true })
+}
+
+export { register, login, createAccessToken, profile, logout, searchUser }
