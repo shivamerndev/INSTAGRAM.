@@ -24,7 +24,7 @@ const logoutSerivice = () => {
 }
 
 const searchUserService = async (query) => {
-    return await userModel.find({ $text: { $search: query } }).select("fullName username profileImage")
+    return await userModel.find({username: {$regex: query, $options: "i"}}).select("fullName username profileImage")
 }
 
 export { registerService, loginService, profileService, logoutSerivice, searchUserService }

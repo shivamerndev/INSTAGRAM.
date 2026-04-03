@@ -214,16 +214,7 @@ export const NAV_CONFIG = [
         </svg>,
         title: "create"
     },
-    {
-        svg: <div className="h-5 w-5 rounded-full overflow-hidden bg-amber-900">
-            <img
-                className="object-cover h-full w-full"
-                src="https://avatars.githubusercontent.com/u/200345368?v=4&size=40"
-                alt="N"
-            />
-        </div>,
-        title: "profile"
-    }
+ 
 ]
 
 
