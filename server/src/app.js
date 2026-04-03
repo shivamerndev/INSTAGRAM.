@@ -5,6 +5,7 @@ import parser from "cookie-parser"
 import googleRoutes from "../src/routes/google.route.js"
 import passport from "passport"
 import upload from "./config/multer.config.js";
+import storyRoutes from "./routes/story.routes.js";
 
 const app = express()
 app.use(passport.initialize());
@@ -21,6 +22,7 @@ app.use('/api/follows', followsRoutes);
 app.use('/api/messages', messagesRoutes);
 app.use('/api/likes', likesRoutes);
 app.use("/api/auth", googleRoutes)
+app.use("/api/stories", storyRoutes)
 
 
 app.use((err, req, res, next) => {

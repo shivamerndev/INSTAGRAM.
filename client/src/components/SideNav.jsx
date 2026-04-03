@@ -1,10 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { NAV_CONFIG } from "../configs/nav.config";
 import { useState } from "react";
+import { useSelector } from "react-redux"
+
 
 const SideNavbar = () => {
 
     const [hover, setHover] = useState(false)
+    const { user } = useSelector(state => state.user)
 
     return (
         <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className="w-54 h-full   select-none transition-all duration-300 sticky top-0 ">
@@ -29,6 +32,20 @@ const SideNavbar = () => {
                 {hover && <h1 className="capitalize text-base">{title}</h1>}
             </NavLink>)
             }
+
+
+            <div className="flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-200 hover:bg-zinc-900 cursor-pointer group w-fit">
+                <figure className="h-8 w-8 rounded-full overflow-hidden border-2 border-[#c799ff] bg-[#23232a] shadow">
+                    <img
+                        className="object-cover h-full w-full"
+                        src={user.profileImage || "https://ik.imagekit.io/shivamerndev/396854_qgne_HtVa.webp"}
+                        alt="profile"
+                    />
+                </figure>
+                {hover && <h1 className="capitalize text-base text-white font-semibold group-hover:text-[#c799ff] transition-colors duration-200">Profile</h1>}
+            </div>
+
+
 
         </div >
     );

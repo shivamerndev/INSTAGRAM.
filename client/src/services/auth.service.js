@@ -17,8 +17,4 @@ const logout = async () => {
     return await axios.post("/user/logout")
 }
 
-const searchUser = async (query) => {
-    return await axios.get(`/user/search?text=${query}`)
-}
-
-export { registerUser, loginUser, getMe, logout, searchUser }
+export { registerUser, loginUser, getMe, logout }

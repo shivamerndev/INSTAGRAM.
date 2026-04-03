@@ -44,6 +44,7 @@ const Register = () => {
               className="h-10 mt-1 w-full rounded-md border border-white/10 bg-zinc-900/60 px-4 text-base text-white placeholder:text-white/30 outline-none transition focus:border-fuchsia-400/60 focus:ring-2 focus:ring-fuchsia-500/15"
               type="text"
               name="username"
+              minLength={8}
               autoComplete="username"
               placeholder="johndoe"
             />

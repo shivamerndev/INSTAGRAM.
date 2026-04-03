@@ -7,6 +7,7 @@ import CreatePost from "../pages/CreatePost"
 import SearchPage from "../pages/SearchPage"
 import ProtectRoutes from "../auth/user.protected"
 import PublicRoute from "../auth/user.public"
+import StoryPage from "../pages/StoryPage"
 
 const AllRoutes = createBrowserRouter([{
     element: <App />,
@@ -42,6 +43,10 @@ const AllRoutes = createBrowserRouter([{
                 {
                     path: "/search",
                     element: <SearchPage />
+                },
+                {
+                    path:"/story",
+                    element:<StoryPage/>
                 }
             ]
         }

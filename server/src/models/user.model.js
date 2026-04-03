@@ -48,7 +48,7 @@ const userSchema = new Schema(
 
         profileImage: {
             type: String,
-            default: "",
+            default: "https://ik.imagekit.io/hnoglyswo0/avatar-photo-default-user-icon-600nw-2558759027.webp?updatedAt=1773986129958"
         },
 
         isPrivate: {
@@ -58,8 +58,6 @@ const userSchema = new Schema(
     },
     { timestamps: true }
 );
-
-userSchema.index({ username: "text" }) // for search functionality (full text search)
 
 
 userSchema.pre("save", async function (next) {
@@ -74,7 +72,7 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
 };
 
 userSchema.methods.generateToken = async function (data) {
-    return await jwt.sign(data, JWT_SECRET,{expiresIn:"5m"})
+    return await jwt.sign(data, JWT_SECRET,{expiresIn:"15m"})
 }
 
 export default model("User", userSchema)
