@@ -14,5 +14,5 @@ createRoot(document.getElementById('root')).render(
         <GoogleOAuthProvider clientId={clientId}>
             <RouterProvider router={AllRoutes} />
         </GoogleOAuthProvider>
-    </Provider>
+    </Provider> 
 )

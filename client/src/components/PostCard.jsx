@@ -5,8 +5,7 @@ const PostCard = ({ post }) => {
 
     const [mediaIndex, setMediaIndex] = useState(0);
 
-    const { user, caption, media, likeCount, commentNumber, createdAt } = post;
-    const profileImage = user.profileImage || "https://imgs.search.brave.com/veKl8ET9WhanlBbihrKWBEkRfga_K4vtJ2gNSmAM1iE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/dmVjdG9yc3RvY2su/Y29tL2kvNTAwcC80/MS85MS9hdmF0YXIt/ZGVmYXVsdC11c2Vy/LXByb2ZpbGUtaWNv/bi1zaW1wbGUtZmxh/dC1ncmV5LXZlY3Rv/ci01NzIzNDE5MS5q/cGc"
+    const { user: { profileImage,username,fullName }, caption, media, likeCount, commentNumber, createdAt } = post;
 
     const handlePrev = (e) => {
         e.stopPropagation();
@@ -41,11 +40,11 @@ const PostCard = ({ post }) => {
                     <img
                         className="w-10 h-10 rounded-full object-cover border border-white/10"
                         src={profileImage}
-                        alt={user.username}
+                        alt={username}
                     />
                     <div>
-                        <h3 className="text-sm font-bold text-white leading-none">{user.fullName}</h3>
-                        <p className="text-[11px] text-gray-500 mt-0.5">@{user.username}</p>
+                        <h3 className="text-sm font-bold text-white leading-none">{fullName}</h3>
+                        <p className="text-[11px] text-gray-500 mt-0.5">@{username}</p>
                     </div>
                 </div>
                 <button className="text-gray-500 hover:text-white pb-2 flex">
@@ -123,7 +122,7 @@ const PostCard = ({ post }) => {
                     </p>
                 </div>
                 <div className="text-sm mb-2">
-                    <span className="font-bold mr-2">{user.username}</span>
+                    <span className="font-bold mr-2">{username}</span>
                     <span className="text-[#adaaaa]">{caption}</span>
                 </div>
                 <button className="text-[#767575] text-[13px] mb-2 hover:text-[#adaaaa] transition-colors">

@@ -3,9 +3,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import userAuth from "../hooks/userAuth";
 import handleForm from "../utils/form.utility";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 const Register = () => {
 
+  const [showPassword, setShowPassword] = useState(false)
   const { handleRegister } = userAuth()
 
   const handleSuccess = async (credentialResponse) => {
@@ -57,11 +60,18 @@ const Register = () => {
               placeholder="you@example.com"
             />
             <label className="text-sm text-white/70">Password</label>
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute cursor-pointer right-3 bottom-0 transform -translate-y-1/2 text-gray-500 hover:text-amber-600 transition-colors">
+              {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+            </button>
             <input
               className="h-10 mt-1 w-full rounded-md border border-white/10 bg-zinc-900/60 px-4 text-base text-white placeholder:text-white/30 outline-none transition focus:border-fuchsia-400/60 focus:ring-2 focus:ring-fuchsia-500/15"
-              type="password"
+              minLength={8}
+              type={showPassword ? "text" : "password"}
               name="password"
-              autoComplete="new-password"
+              autoComplete="password"
               placeholder="Create a strong password"
             />
             <button

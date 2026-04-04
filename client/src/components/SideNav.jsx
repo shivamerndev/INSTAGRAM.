@@ -38,7 +38,7 @@ const SideNavbar = () => {
                 <figure className="h-8 w-8 rounded-full overflow-hidden border-2 border-[#c799ff] bg-[#23232a] shadow">
                     <img
                         className="object-cover h-full w-full"
-                        src={user.profileImage || "https://ik.imagekit.io/shivamerndev/396854_qgne_HtVa.webp"}
+                        src={user.profileImage}
                         alt="profile"
                     />
                 </figure>

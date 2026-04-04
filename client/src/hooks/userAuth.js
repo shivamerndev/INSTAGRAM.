@@ -1,10 +1,12 @@
 import { useDispatch } from "react-redux"
 import { getMe, loginUser, registerUser } from "../services/auth.service"
-import { setUser } from "../stores/features/auth.slice"
+import { setUser, setLoading } from "../stores/features/auth.slice"
+import { useNavigate } from "react-router-dom"
 
 const userAuth = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const handleRegister = (data) => {
         registerUser(data)
@@ -20,11 +22,17 @@ const userAuth = () => {
         }
 
         let res = await loginUser(payload)
+        if (res.status === 200) {
+            await handleGetMe()
+            navigate("/", { replace: true })
+        }
     }
 
     const handleGetMe = async () => {
         let user = await getMe()
+        if (user.status !== 200) navigate("/login", { replace: true })
         dispatch(setUser(user.data.user))
+        dispatch(setLoading(false))
     }
 
     return { handleRegister, handleLogin, handleGetMe }
