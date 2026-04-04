@@ -9,9 +9,9 @@ const loginUser = handleError((data) => {
     return axios.post("/user/login", data)
 })
 
-const getMe = async () => {
+const getMe = handleError(async () => {
     return await axios.get("/user/profile")
-}
+})
 
 const logout = async () => {
     return await axios.post("/user/logout")

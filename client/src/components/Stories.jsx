@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const Stories = () => {
 
+    const { user: { profileImage } } = useSelector(state => state.user)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { stories } = useSelector(state => state.stories)
@@ -27,7 +28,7 @@ const Stories = () => {
                 <div className=" rounded-full border-2 border-dashed border-neutral-600 relative">
                     <img
                         className="w-16 h-16 rounded-full object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIV6Np8TGFVdtFMZV6k7qLOAfSI5X2VaStLfr4snxpQvNx-hUjbBGgHfGDbw2UyxIWpCtMAzidPTmb87pMjQl2E6wRScF8C_7vhqLKIzGc9udEM28nO7iuBILg008PiF21E_x83Iy15nOHyOctjE1-FI3VHPQXZWOmQHAvfTPs9mshRaAN5sNC2XvTw2Bc_5jeiyxuY7fSE232NhE05pATqe6NY4hpZujxAN1PIP5W3NWQoEA-VxQiH-5N7JRxbVisKGDyPbeUN4E8"
+                        src={profileImage}
                         alt="My Story"
                     />
                     <div className="absolute bottom-0 right-0 bg-[#c799ff] text-black rounded-full p-0 border-2 border-[#0e0e0e] w-5 h-5 flex items-center justify-center">

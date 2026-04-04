@@ -3,7 +3,7 @@ import { JWT_REFRESH_SECRET, JWT_SECRET } from "../config/env.config.js"
 
 const userAuth = (req, res, next) => {
     const token = req.cookies.token
-    if (!token) return res.status(400).json({ message: "Token Not Found." })
+    if (!token) return res.status(400).json({ success: false, message: "Token Not Found." })
     const decoded = jwt.verify(token, JWT_SECRET)
     req.userId = decoded;
     next()

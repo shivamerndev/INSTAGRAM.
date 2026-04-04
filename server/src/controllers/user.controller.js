@@ -12,12 +12,12 @@ import handleError from "../utils/error.utils.js";
 const register = handleError(async (req, res) => {
 
     const { fullName, email, password, username } = req.body;
-
-    if (!fullName, !email, !password, !username) return res.status(400).json({ message: "All Fields Are Required." })
+    
+    if (!fullName || !email || !password || !username) return res.status(400).json({ message: "All Fields Are Required." })
     let response = await registerService(req.body)
 
     if (!response) return res.status(400).json({ meassage: "User Already Exists.", success: false })
-    const token = await user.generateToken({ id: response._id })
+    const token = await response.generateToken({ id: response._id })
 
     res.cookie("token", token)
     res.status(201).json({ message: "User Registered Successfully.", success: true })
