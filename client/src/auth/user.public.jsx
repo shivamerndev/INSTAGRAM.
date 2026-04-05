@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux"
-import { Navigate, Outlet } from "react-router-dom";
-import userAuth from "../hooks/userAuth";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const PublicRoute = () => {
 
     const { user } = useSelector(state => state.user)
+    const navigate = useNavigate()
 
-    if (user) {
-        return <Navigate to="/" />
-    }
+    useEffect(() => {
+        if (user) navigate("/",{ replace: true })
+    }, [user])
 
     return <Outlet />
 }
