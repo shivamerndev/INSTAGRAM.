@@ -24,7 +24,18 @@ const logoutSerivice = () => {
 }
 
 const searchUserService = async (query) => {
-    return await userModel.find({username: {$regex: query, $options: "i"}}).select("fullName username profileImage")
+    // return await userModel.find({ username: { $regex: query, $options: "i" } }).select("fullName username profileImage")
+    return await userModel.aggregate([
+        {
+            $search: {
+                index: "default",
+                autocomplete: { query, path: "username", }
+            }
+        },
+        {
+            $project: { username: 1, fullName: 1, profileImage: 1, score: { $meta: "searchScore" } }
+        }
+    ])
 }
 
 export { registerService, loginService, profileService, logoutSerivice, searchUserService }

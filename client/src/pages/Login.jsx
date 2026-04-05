@@ -8,15 +8,7 @@ import { useState } from "react";
 const Login = () => {
 
     const [showPassword, setShowPassword] = useState(false)
-    const { handleLogin } = userAuth()
-
-    const handleSuccess = async (credentialResponse) => {
-        console.log(credentialResponse);
-        await axios.post("http://localhost:4000/api/auth/google", {
-            idToken: credentialResponse.credential
-        }, { withCredentials: true });
-    };
-
+    const { handleLogin,handleGoogleLogin } = userAuth()
 
     return (
         <div className="relative w-full overflow-hidden bg-zinc-950 text-white">
@@ -81,7 +73,7 @@ const Login = () => {
                                 <span className="rounded-full bg-zinc-950/60 px-3 text-xs text-white/50">or continue with</span>
                             </div>
                         </div>
-                        <GoogleLogin onSuccess={handleSuccess} onError={() => console.log("Login Failed")}
+                        <GoogleLogin onSuccess={handleGoogleLogin} onError={() => console.log("Google Login Failed")}
                             theme="filled_black"
                             shape="pill"
                             size="large" />

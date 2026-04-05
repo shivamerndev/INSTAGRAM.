@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { getMe, loginUser, registerUser } from "../services/auth.service"
+import { getMe, googleLogin, loginUser, logout, registerUser } from "../services/auth.service"
 import { setUser, setLoading } from "../stores/features/auth.slice"
 import { useNavigate } from "react-router-dom"
 
@@ -8,8 +8,18 @@ const userAuth = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const handleRegister = (data) => {
-        registerUser(data)
+    const handleGoogleLogin = async (credentialResponse) => {
+        const res = await googleLogin(credentialResponse)
+        if (res.status === 200 || res.status === 201) {
+            await handleGetMe()
+        }
+    }
+
+    const handleRegister = async (data) => {
+        const res = await registerUser(data)
+        if (res.status === 200) {
+            await handleGetMe()
+        }
     }
 
     const handleLogin = async (data) => {
@@ -27,6 +37,12 @@ const userAuth = () => {
         }
     }
 
+    const handleLogout = async () => {
+        await logout()
+        navigate("/login", { replace: true })
+        dispatch(setUser(null))
+    }
+
     const handleGetMe = async () => {
         let user = await getMe()
         if (user.status !== 200) navigate("/login", { replace: true })
@@ -34,7 +50,7 @@ const userAuth = () => {
         dispatch(setLoading(false))
     }
 
-    return { handleRegister, handleLogin, handleGetMe }
+    return { handleRegister, handleLogin, handleLogout, handleGetMe, handleGoogleLogin }
 }
 
 export default userAuth

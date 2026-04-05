@@ -13,8 +13,12 @@ const getMe = handleError(async () => {
     return await axios.get("/user/profile")
 })
 
-const logout = async () => {
+const logout = handleError(async () => {
     return await axios.post("/user/logout")
-}
+})
 
-export { registerUser, loginUser, getMe, logout }
+const googleLogin = handleError(async (credentialResponse) => {
+   return await axios.post("/auth/google", { idToken: credentialResponse.credential });
+})
+
+export { registerUser, loginUser, getMe, logout, googleLogin }

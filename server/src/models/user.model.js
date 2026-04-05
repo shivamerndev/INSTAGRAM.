@@ -32,10 +32,16 @@ const userSchema = new Schema(
             trim: true,
             match: [/^\S+@\S+\.\S+$/, "Invalid email"],
         },
-
+        googleId: {
+            type: String,
+            unique: true,
+            sparse: true, // allow multiple null values
+        },
         password: {
             type: String,
-            required: true,
+            required: function () { // arrow function cannot be used here because we need access to 'this'
+                return !this.googleId
+            }, // password is required if googleId is not provided
             minlength: 6,
             select: false, // important (hide password by default)
         },
@@ -60,11 +66,10 @@ const userSchema = new Schema(
 );
 
 
-userSchema.pre("save", async function (next) {
-    if (!this.isModified("password")) return next(); // agar password change nahi hua to skip
+userSchema.pre("save", async function () {
+    if (!this.password || !this.isModified("password")) return // agar password change nahi hua to skip
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
-    // next();
 });
 
 userSchema.methods.comparePassword = async function (enteredPassword) {
@@ -72,7 +77,7 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
 };
 
 userSchema.methods.generateToken = async function (data) {
-    return await jwt.sign(data, JWT_SECRET,{expiresIn:"15m"})
+    return await jwt.sign(data, JWT_SECRET, { expiresIn: "15m" })
 }
 
 export default model("User", userSchema)
