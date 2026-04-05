@@ -26,15 +26,7 @@ export const registerValidation = [
         .notEmpty().withMessage("Password is required")
         .isLength({ min: 6 }).withMessage("Password must be at least 6 characters long")
         .custom((value) => {
-            // const hasUpperCase = /[A-Z]/.test(value);
-            // const hasLowerCase = /[a-z]/.test(value);
-            // const hasDigit = /\d/.test(value);
-            // const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
-          
-            // if (!hasUpperCase || !hasLowerCase || !hasDigit || !hasSpecialChar) {
-            //     throw new Error("Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character");
-            // }
-
+            
             let format = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$!%*?&]).{8,}$/.test(value)
 
             if (!format) {

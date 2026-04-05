@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux"
-
+import useAuth from '../hooks/userAuth'
 
 const Profile = () => {
 
     const { user: { profileImage, username, bio } } = useSelector(state => state.user)
     const { posts } = useSelector(state => state.posts)
 
+    const { handleLogout } = useAuth()
 
     return (
         <section className="max-w-4xl mx-auto mt-12 bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-10 flex flex-col gap-10">
@@ -17,8 +18,10 @@ const Profile = () => {
                 <div className="flex-1 flex flex-col gap-2">
                     <div className="flex items-center gap-4">
                         <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">{username}</h1>
-                        <button className="px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow transition-colors duration-200">Follow</button>
-                        {/* <button className="px-6 py-2 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 font-semibold">Edit Profile</button> */}
+                        <button className="px-6 py-1 cursor-pointer rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow transition-colors duration-200">Follow</button>
+                        <button className="px-6 py-1 cursor-pointer rounded-lg border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 font-semibold">Edit Profile</button>
+                        <button onClick={handleLogout} className="px-6 py-1 cursor-pointer rounded-lg border border-gray-300 bg-red-500 font-semibold">Logout</button>
+
                     </div>
                     <div className="flex gap-8 mt-2">
                         <span className="text-base text-gray-700 dark:text-gray-200"><b>200</b> posts</span>
@@ -39,7 +42,6 @@ const Profile = () => {
             <div id="postCards" className="grid grid-cols-3 gap-4">
                 {posts.map(p => <div key={p._id} className="aspect-square bg-linear-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-700 rounded-lg flex items-center justify-center text-gray-400 text-4xl font-bold border border-gray-100 dark:border-gray-800">
                     <img src={p.media[0].url} alt="" />
-
                 </div>)}
 
             </div>

@@ -1,25 +1,34 @@
 import { OAuth2Client } from "google-auth-library";
+import { loginService, registerService } from "../services/user.service.js";
 import { GOOGLE_CLIENT_ID } from "../config/env.config.js"
+import handleError from "../utils/error.utils.js";
 
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
-export const googleAuth = async (req, res) => {
-    try {
-        const { idToken } = req.body;
+export const googleAuth = handleError(async (req, res) => {
 
-        // verify token with google
-        const ticket = await client.verifyIdToken({
-            idToken,
-            audience: process.env.GOOGLE_CLIENT_ID
-        });
+    const { idToken } = req.body;
 
-        const payload = ticket.getPayload();
+    // verify token with google
+    const ticket = await client.verifyIdToken({ idToken, audience: GOOGLE_CLIENT_ID });
 
-        const { sub, name, email, picture } = payload;
+    const payload = ticket.getPayload();
 
-        console.log({ sub, name, email, picture })
+    const { sub: googleId, name: fullName, email, picture: profileImage } = payload;
+    const username = email.split("@")[0]
 
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+    const response = await registerService({ googleId, fullName, email, profileImage, username })
+
+    if (!response) {
+        let user = await loginService({ email })
+        if (!user) return res.status(401).json({ success: false, message: "Invalid Credentials" })
+        let token = await user.generateToken({ id: user._id })
+        res.cookie("token", token)
+        return res.status(200).json({ success: true, message: "LoggedIn Successfully." })
     }
-};
+
+    let token = await response.generateToken({ id: response._id })
+
+    res.cookie("token", token)
+    res.status(201).json({ message: "User Registered Successfully.", success: true })
+})
