@@ -34,7 +34,7 @@ const SideNavbar = () => {
             }
 
 
-            <NavLink to={"/profile"} className="flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-200 hover:bg-zinc-900 cursor-pointer group w-fit">
+            <NavLink to={"/"+user.username} className="flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-200 hover:bg-zinc-900 cursor-pointer group w-fit">
                 <figure className="h-8 w-8 rounded-full overflow-hidden border-2 border-[#c799ff] bg-[#23232a] shadow">
                     <img
                         className="object-cover h-full w-full"

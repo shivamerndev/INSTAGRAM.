@@ -54,7 +54,7 @@ const AllRoutes = createBrowserRouter([{
                     element:<Message/>
                 },
                 {
-                    path:"/profile",
+                    path:"/:username",
                     element:<Profile/>
                 }
             ]

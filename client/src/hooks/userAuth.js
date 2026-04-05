@@ -24,7 +24,6 @@ const userAuth = () => {
         let res = await loginUser(payload)
         if (res.status === 200) {
             await handleGetMe()
-            navigate("/", { replace: true })
         }
     }
 
