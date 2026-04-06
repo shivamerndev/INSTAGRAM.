@@ -8,7 +8,6 @@ const SearchTile = ({ user }) => {
     const navigate = useNavigate()
     const [follow, setFollow] = useState(true)
 
-
     return <div onClick={() => navigate(`/${user.username}`)} className="flex items-center gap-4 p-4 bg-[#18181c] rounded-lg shadow border border-white/10 w-full max-w-md mb-2">
         <img
             src={user.profileImage}
@@ -22,7 +21,7 @@ const SearchTile = ({ user }) => {
         {username !== user.username && <button onClick={(e) => {
             e.stopPropagation()
             setFollow(!follow)
-        }} className="ml-auto px-4 cursor-pointer py-2 bg-[#20b1ff] hover:bg-[#6c8fff] text-white rounded-lg font-semibold transition-colors duration-150 shadow border border-[#c799ff]/30">
+        }} className="ml-auto px-4 cursor-pointer py-1 bg-[#00a6ff] hover:bg-[#6c8fff] text-white rounded-lg font-semibold transition-colors duration-150 shadow border border-[#c799ff]/30">
             {follow ? "Follow" : "UnFollow"}
         </button>}
     </div>
