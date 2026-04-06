@@ -12,7 +12,7 @@ import handleError from "../utils/error.utils.js";
 const register = handleError(async (req, res) => {
 
     const { fullName, email, password, username } = req.body;
-    
+
     if (!fullName || !email || !password || !username) return res.status(400).json({ message: "All Fields Are Required." })
     let response = await registerService(req.body)
 
@@ -98,9 +98,20 @@ const logout = (req, res) => {
 
 const searchUser = async (req, res) => {
     const { text } = req.query;
+    const { id } = req.userId
     if (!text) return res.status(400).json({ success: false, message: "Search Query Missing." })
-    const users = await searchUserService(text)
+    const users = await searchUserService(text, id)
     res.status(200).json({ users, success: true })
 }
 
-export { register, login, createAccessToken, profile, logout, searchUser }
+/**
+ * @method POST
+ * @returs /api/user/follow 
+*/
+
+const followUser =  (req, res) => {
+    const { body: { followee }, userId: {id:follower} } = req;
+    console.log(followee, follower,status)
+}
+
+export { register, login, createAccessToken, profile, logout, searchUser, followUser }
