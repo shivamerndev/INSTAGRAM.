@@ -10,6 +10,7 @@ import PublicRoute from "../auth/user.public"
 import StoryPage from "../pages/StoryPage"
 import Profile from "../pages/Profile"
 import Message from "../pages/Message"
+import Notification from "../pages/Notification"
 
 const AllRoutes = createBrowserRouter([{
     element: <App />,
@@ -52,6 +53,10 @@ const AllRoutes = createBrowserRouter([{
                 },{
                     path:"/messages",
                     element:<Message/>
+                },
+                {
+                    path:"/notifications",
+                    element:<Notification/>
                 },
                 {
                     path:"/:username",

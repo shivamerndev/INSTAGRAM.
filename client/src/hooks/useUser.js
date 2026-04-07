@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { followUser, searchUser } from '../services/user.service'
+import { searchUser } from '../services/user.service'
 
 const useUser = () => {
 
@@ -10,13 +10,7 @@ const useUser = () => {
     setResults(res.data.users)
   }
 
-  const handleFollowUser = async (followee) => {
-    let res = await followUser({ followee })
-    console.log(res)
-  }
-
-
-  return { handleSearchUser, results, handleFollowUser }
+  return { handleSearchUser, results }
 }
 
 export default useUser
