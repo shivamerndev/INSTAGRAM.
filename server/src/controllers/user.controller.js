@@ -1,5 +1,5 @@
 import userModel from "../models/user.model.js";
-import { loginService, logoutSerivice, profileService, registerService, searchUserService } from "../services/user.service.js"
+import { followUserService, loginService, logoutSerivice, profileService, registerService, searchUserService } from "../services/user.service.js"
 import handleError from "../utils/error.utils.js";
 
 
@@ -109,9 +109,12 @@ const searchUser = async (req, res) => {
  * @returs /api/user/follow 
 */
 
-const followUser =  (req, res) => {
-    const { body: { followee }, userId: {id:follower} } = req;
-    console.log(followee, follower,status)
+const followUser = async (req, res) => {
+    const { body: { followee }, userId: { id: follower } } = req;
+    if (!followee || !follower || followee === follower) return res.status(400).json({ success: false, message: "Some Went Wrong" })
+    let response = await followUserService({ followee, follower })
+    if (!response) return console.log(response)
+    res.status(200).json({ success: true, message: "Requested" })
 }
 
 export { register, login, createAccessToken, profile, logout, searchUser, followUser }
