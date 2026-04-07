@@ -1,5 +1,6 @@
 import userModel from "../models/user.model.js"
 import followModel from "../models/follow.model.js"
+import { Schema } from "mongoose";
 
 const registerService = async (data) => {
     const { username, email } = data;
@@ -25,11 +26,12 @@ const logoutSerivice = () => {
 }
 
 const searchUserService = async (query, id) => {
+
     // return await userModel.find({ username: { $regex: query, $options: "i" } }).select("fullName username profileImage")
     return await userModel.aggregate([
         {
             '$search': {
-                'index': 'default',
+                'index': 'search_user',
                 'autocomplete': {
                     'query': query,
                     'path': 'username'
@@ -37,16 +39,15 @@ const searchUserService = async (query, id) => {
             }
         }, {
             '$lookup': {
-                'from': 'follows',
-                'as': 'followDoc',
-                'let': { 'searchUser': '$username' },
-                'pipeline': [
+                from: "follows",
+                as: "followDoc",
+                let: { searchUser: "$_id" },
+                pipeline: [
                     {
-                        '$match': {
-                            '$expr': {
-                                '$and': [
-                                    { '$eq': ['$follower', id] },
-                                    { '$eq': ['$followee', '$$searchUser'] }
+                        $match: {
+                            $expr: {
+                                $and: [
+                                    { $eq: ["$followee", "$$searchUser"] }
                                 ]
                             }
                         }
@@ -81,7 +82,7 @@ const searchUserService = async (query, id) => {
 }
 
 const followUserService = async (data) => {
-    return await follow
+    return await followModel.create(data)
 }
 
-export { registerService, loginService, profileService, logoutSerivice, searchUserService }
+export { registerService, loginService, profileService, logoutSerivice, searchUserService, followUserService }

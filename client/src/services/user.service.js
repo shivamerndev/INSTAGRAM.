@@ -4,4 +4,8 @@ const searchUser = async (query) => {
     return await axiosUtility.get(`/user/search?text=${query}`)
 }
 
-export { searchUser }
+const followUser = async (data) => {
+    return await axiosUtility.post("/user/follow", data)
+}
+
+export { searchUser, followUser }
