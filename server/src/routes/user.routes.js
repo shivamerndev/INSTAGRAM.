@@ -1,4 +1,4 @@
-import { createAccessToken, followUser, login, logout, profile, register, searchUser } from '../controllers/user.controller.js';
+import { createAccessToken, followUser, getNotification, login, logout, profile, register, searchUser } from '../controllers/user.controller.js';
 import express from 'express';
 import { registerValidation } from '../validator/user.validator.js';
 import { userAuth, refreshAccessToken } from '../middleware/user.auth.js';
@@ -25,5 +25,8 @@ router.get('/search',userAuth, searchUser);
 
 // POST /api/user/follow
 router.post('/follow',userAuth, followUser);
+
+// GET /api/user/notify
+router.get("/notify",userAuth,getNotification)
 
 export default router;

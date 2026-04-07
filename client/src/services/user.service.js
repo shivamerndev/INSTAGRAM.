@@ -8,4 +8,8 @@ const followUser = async (data) => {
     return await axiosUtility.post("/user/follow", data)
 }
 
-export { searchUser, followUser }
+const notification = async ()=>{
+    return await axiosUtility.get("/user/notify")
+}
+
+export { searchUser, followUser,notification }

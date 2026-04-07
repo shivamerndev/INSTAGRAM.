@@ -1,5 +1,5 @@
 import userModel from "../models/user.model.js";
-import { followUserService, loginService, logoutSerivice, profileService, registerService, searchUserService } from "../services/user.service.js"
+import { followUserService, loginService, logoutSerivice, notificationService, profileService, registerService, searchUserService } from "../services/user.service.js"
 import handleError from "../utils/error.utils.js";
 
 
@@ -106,15 +106,27 @@ const searchUser = async (req, res) => {
 
 /**
  * @method POST
- * @returs /api/user/follow 
+ * @params /api/user/follow 
 */
 
 const followUser = async (req, res) => {
     const { body: { followee }, userId: { id: follower } } = req;
     if (!followee || !follower || followee === follower) return res.status(400).json({ success: false, message: "Some Went Wrong" })
     let response = await followUserService({ followee, follower })
-    if (!response) return console.log(response)
+    if (!response) return res.send(400).json({ success: false, message: "Something Went Wrong", response })
     res.status(200).json({ success: true, message: "Requested" })
 }
 
-export { register, login, createAccessToken, profile, logout, searchUser, followUser }
+
+/**
+ * @method GET
+ * @params /api/user/notify 
+*/
+
+const getNotification = async (req, res) => {
+    const { id } = req.userId
+    let response = await notificationService(id)
+    res.status(200).json(response)
+}
+
+export { register, login, createAccessToken, profile, logout, searchUser, followUser, getNotification }

@@ -1,6 +1,6 @@
 import userModel from "../models/user.model.js"
 import followModel from "../models/follow.model.js"
-import { Schema } from "mongoose";
+import { Types } from "mongoose";
 
 const registerService = async (data) => {
     const { username, email } = data;
@@ -42,29 +42,28 @@ const searchUserService = async (query, id) => {
                 from: "follows",
                 as: "followDoc",
                 let: { searchUser: "$_id" },
-                pipeline: [
-                    {
-                        $match: {
-                            $expr: {
-                                $and: [
-                                    { $eq: ["$followee", "$$searchUser"] }
-                                ]
-                            }
+                pipeline: [{
+                    $match: {
+                        $expr: {
+                            $and: [
+                                { $eq: ["$followee", new Types.ObjectId(id)] }, // don't use Schema.Types.ObjectId(id)
+                                { $eq: ["$follower", "$$searchUser"] }
+                            ]
                         }
                     }
-                ]
+                }]
             }
         }, {
             '$addFields': {
-                'followStatus': {
-                    '$cond': {
-                        'if': { '$lt': [{ '$size': '$followDoc' }, 1] },
-                        'then': null,
-                        'else': {
-                            '$cond': {
-                                'if': { '$eq': [{ '$arrayElemAt': ['$followDoc.status', 0] }, 'pending'] },
-                                'then': 'requested',
-                                'else': 'following'
+                followStatus: {
+                    $cond: {
+                        if: { $eq: [{ $size: "$followDoc" }, 0] },
+                        then: null,
+                        else: {
+                            $cond: {
+                                if: { $eq: [{ $arrayElemAt: ["$followDoc.status", 0] }, "pending"] },
+                                then: "requested",
+                                else: "following"
                             }
                         }
                     }
@@ -85,4 +84,34 @@ const followUserService = async (data) => {
     return await followModel.create(data)
 }
 
-export { registerService, loginService, profileService, logoutSerivice, searchUserService, followUserService }
+const notificationService = async (id) => {
+    return await followModel.aggregate([{
+        $match: {
+            followee: new Types.ObjectId(id),
+            status: "pending"
+        }
+    }, {
+        $lookup: {
+            from: "users",
+            as: "user",
+            localField: "follower",
+            foreignField: "_id"
+        }
+    }, {
+        $unwind: {
+            path: "$user"
+        }
+    }, {
+        $project: {
+            _id: 0,
+            id: "$user._id",
+            username: "$user.username",
+            fullName: "$user.fullName",
+            profileImage: "$user.profileImage"
+        }
+
+    }
+    ])
+}
+
+export { registerService, loginService, profileService, logoutSerivice, searchUserService, followUserService, notificationService }

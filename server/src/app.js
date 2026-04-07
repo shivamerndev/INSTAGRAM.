@@ -6,9 +6,11 @@ import googleRoutes from "../src/routes/google.route.js"
 import passport from "passport"
 import upload from "./config/multer.config.js";
 import storyRoutes from "./routes/story.routes.js";
+import morgan from "morgan"
 
 const app = express()
 app.use(passport.initialize());
+app.use(morgan("dev"))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(parser())
