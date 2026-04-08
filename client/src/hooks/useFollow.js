@@ -12,7 +12,7 @@ const useFollow = () => {
 
     const handleNotification = async () => {
         let res = await notification()
-        setResults(res.data)
+        setResults(res.data.requests)
     }
 
     return { handleFollowUser, handleNotification, requests }
