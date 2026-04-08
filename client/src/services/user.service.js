@@ -1,15 +1,18 @@
 import axiosUtility from '../utils/axios.utility'
+import handleError from "../utils/error.utility"
 
-const searchUser = async (query) => {
+
+const searchUser = handleError(async (query) => {
     return await axiosUtility.get(`/user/search?text=${query}`)
-}
+})
 
-const followUser = async (data) => {
+const followUser = handleError(async (data) => {
     return await axiosUtility.post("/user/follow", data)
-}
+})
 
-const notification = async ()=>{
-    return await axiosUtility.get("/user/notify")
-}
+const notification = handleError(async () => {
+    return await axiosUtility.get("/user/follow-requests")
+})
 
-export { searchUser, followUser,notification }
+
+export { searchUser, followUser, notification }

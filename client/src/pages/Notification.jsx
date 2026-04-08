@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import useFollow from '../hooks/useFollow';
+import { useNavigate } from "react-router-dom"
 
 const Notification = () => {
+
+    const navigate = useNavigate()
 
     const { handleNotification, requests } = useFollow()
 
@@ -29,39 +32,31 @@ const Notification = () => {
                 {requests.length > 0 ? (
                     <div className="space-y-3">
                         {requests.map((user) => (
-                            <div
-                                key={user.id}
+                            <div onClick={() => navigate("/" + user.follower.username)}
+                                key={user.follower._id}
                                 className="flex items-center gap-4 p-4 bg-[#18181c] rounded-xl border border-white/10 hover:border-[#c799ff]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#c799ff]/10 group"
                             >
                                 {/* User Avatar */}
                                 <div className="shrink-0">
                                     <img
-                                        src={user.profileImage}
-                                        alt={user.fullName}
+                                        src={user.follower.profileImage}
+                                        alt={user.follower.username}
                                         className="w-14 h-14 rounded-full object-cover border-2 border-[#c799ff] bg-[#23232a] group-hover:shadow-lg group-hover:shadow-[#c799ff]/40 transition-all duration-300"
                                     />
                                 </div>
 
-                                {/* User Info */}
-                                <div className="flex-1 min-w-0">
-                                    <div className="flex flex-col">
-                                        <span className="font-semibold text-white truncate group-hover:text-[#c799ff] transition-colors duration-200">
-                                            {user.fullName}
-                                        </span>
-                                        <span className="text-gray-400 text-sm truncate">@{user.username}</span>
-                                    </div>
-                                </div>
+                                <span className="text-lg font-semibold truncate">@{user.follower.username}</span>
 
                                 {/* Action Buttons */}
-                                <div className="flex gap-2 shrink-0">
+                                <div onClick={(e)=>e.stopPropagation()} className="flex gap-2 shrink-0">
                                     <button
-                                        onClick={() => handleAccept(user.id)}
+                                        onClick={() => handleAccept(user.follower.id)}
                                         className="px-5 cursor-pointer py-2 bg-linear-to-r from-[#00a6ff] to-[#0080cc] hover:from-[#00d4ff] hover:to-[#0099ff] text-white font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-[#00a6ff]/30 transform hover:scale-105 active:scale-95 border border-[#00a6ff]/50 hover:border-[#00d4ff]"
                                     >
                                         Accept
                                     </button>
                                     <button
-                                        onClick={() => handleReject(user.id)}
+                                        onClick={() => handleReject(user.follower.id)}
                                         className="px-5 cursor-pointer py-2 bg-[#2a2a2a] hover:bg-[#ff3b3b]/20 text-gray-200 hover:text-[#ff6b6b] font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-[#ff3b3b]/20 border border-white/10 hover:border-[#ff6b6b]/50 active:scale-95"
                                     >
                                         Reject

@@ -1,5 +1,5 @@
 import { OAuth2Client } from "google-auth-library";
-import { loginService, registerService } from "../services/user.service.js";
+import { loginService, registerService } from "../services/auth.service.js";
 import { GOOGLE_CLIENT_ID } from "../config/env.config.js"
 import handleError from "../utils/error.utils.js";
 
