@@ -7,7 +7,7 @@ const useFollow = () => {
 
     const handleFollowUser = async (followee) => {
         let res = await followUser({ followee })
-        console.log(res.data)
+       return (res.data)
     }
 
     const handleNotification = async () => {

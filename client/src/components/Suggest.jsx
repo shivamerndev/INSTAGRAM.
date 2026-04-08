@@ -1,17 +1,22 @@
+import { useSelector } from "react-redux"
 
 const Suggest = () => {
+
+    const { user } = useSelector(state => state.user)
+
+
     return (
         <aside className="hidden xl:block w-[320px] h-fit ml-8">
             <div className="flex items-center justify-between mb-8 cursor-pointer group">
                 <div className="flex items-center gap-4">
                     <img
                         className="w-14 h-14 rounded-full object-cover group-hover:opacity-80 transition"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIV6Np8TGFVdtFMZV6k7qLOAfSI5X2VaStLfr4snxpQvNx-hUjbBGgHfGDbw2UyxIWpCtMAzidPTmb87pMjQl2E6wRScF8C_7vhqLKIzGc9udEM28nO7iuBILg008PiF21E_x83Iy15nOHyOctjE1-FI3VHPQXZWOmQHAvfTPs9mshRaAN5sNC2XvTw2Bc_5jeiyxuY7fSE232NhE05pATqe6NY4hpZujxAN1PIP5W3NWQoEA-VxQiH-5N7JRxbVisKGDyPbeUN4E8"
+                        src={user.profileImage}
                         alt="Me"
                     />
                     <div>
-                        <p className="text-sm font-bold text-white leading-none">Alex Rivera</p>
-                        <p className="text-sm text-gray-500 font-medium tracking-tight mt-1">@arivera_obsidian</p>
+                        <p className="text-sm font-bold text-white leading-none">{user.fullName}</p>
+                        <p className="text-sm text-gray-500 font-medium tracking-tight mt-1">{user.username}</p>
                     </div>
                 </div>
                 <button className="text-[#c799ff] text-xs font-bold hover:text-white transition-colors">Switch</button>
