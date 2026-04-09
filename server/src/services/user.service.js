@@ -26,4 +26,10 @@ const requestService = async (data) => {
     return await followModel.find(data).populate("follower", "username profileImage")
 }
 
-export { searchUserService, followUserService, requestService }
+const profileDataService = async (id) => {
+    const followerCount = await followModel.countDocuments({ follower:id })
+    const followeeCount = await followModel.countDocuments({ followee:id })
+    return { followerCount, followeeCount }
+}
+
+export { searchUserService, followUserService, requestService, profileDataService }

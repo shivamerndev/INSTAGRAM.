@@ -12,7 +12,7 @@ const Notification = () => {
 
     return (
         <section className="mx-auto w-full max-w-5xl space-y-6">
-            <div className="rounded-[2rem] border border-white/10 bg-linear-to-br from-white/8 to-white/4 p-6 shadow-[0_24px_70px_-45px_rgba(15,23,42,0.95)] backdrop-blur-xl sm:p-8">
+            <div className="rounded-2xl border border-white/10 bg-linear-to-br from-white/8 to-white/4 p-6 shadow-[0_24px_70px_-45px_rgba(15,23,42,0.95)] backdrop-blur-xl sm:p-8">
                 <p className="text-xs uppercase tracking-[0.3em] text-sky-200/70">Inbox updates</p>
                 <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                     <div>
@@ -36,7 +36,7 @@ const Notification = () => {
                             <div
                                 onClick={() => navigate("/" + user.follower.username)}
                                 key={user.follower._id}
-                                className="group flex cursor-pointer items-center gap-4 rounded-[1.8rem] border border-white/10 bg-white/[0.06] p-5 shadow-[0_24px_70px_-45px_rgba(15,23,42,0.95)] backdrop-blur-xl transition hover:border-sky-400/20 hover:bg-white/[0.08]"
+                                className="group flex cursor-pointer items-center gap-4 rounded-[1.8rem] border border-white/10 bg-white/10 p-5 shadow-[0_24px_70px_-45px_rgba(15,23,42,0.95)] backdrop-blur-xl transition hover:border-sky-400/20 hover:bg-white/10"
                             >
                                 <div className="shrink-0">
                                     <img
@@ -58,7 +58,7 @@ const Notification = () => {
                         ))}
                     </div>
                 ) : (
-                    <div className="flex flex-col items-center justify-center rounded-[2rem] border border-dashed border-white/12 bg-white/5 px-6 py-16 text-center">
+                    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-white/12 bg-white/5 px-6 py-16 text-center">
                         <div className="text-center">
                             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-white/10 bg-slate-950/60">
                                 <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
