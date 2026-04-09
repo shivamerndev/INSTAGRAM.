@@ -18,8 +18,6 @@ const SearchPage = () => {
     }
   }, [search])
 
-  console.log(results)
-
   return (
     <div className="flex flex-col items-center p-6 rounded-xl shadow-lg w-full mx-auto">
       <div className="flex w-1/2 gap-2 mb-6">

@@ -42,7 +42,7 @@ const SideNavbar = () => {
                         alt="profile"
                     />
                 </figure>
-                {hover && <h1 className="capitalize text-base text-white font-semibold group-hover:text-[#c799ff] transition-colors duration-200">Profile</h1>}
+                {hover && <h1 className="capitalize text-base text-white font-semibold group-hover:text-[#c799ff] transition-colors duration-200">{user.username}</h1>}
             </NavLink>
 
 

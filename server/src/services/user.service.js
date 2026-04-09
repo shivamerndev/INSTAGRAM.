@@ -8,11 +8,21 @@ const searchUserService = async (query, id) => {
 }
 
 const followUserService = async (data) => {
-    return await followModel.create(data)
+
+    let isFollow = await followModel.findOne({ follower: data.follower })
+
+
+    if (isFollow && isFollow.status === "pending") {
+        await followModel.findByIdAndDelete(isFollow._id)
+        return { success: true, message: "Request Deleted" }
+    }
+
+    await followModel.create(data)
+    return { success: true, message: "Requested" }
 }
 
 
-const requestService = async (data) => { 
+const requestService = async (data) => {
     return await followModel.find(data).populate("follower", "username profileImage")
 }
 

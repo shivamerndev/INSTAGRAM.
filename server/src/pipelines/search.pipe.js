@@ -18,8 +18,8 @@ export const searchPipeline = (query, id) => [
                 $match: {
                     $expr: {
                         $and: [
-                            { $eq: ["$follower", "$$searchUser"] },
-                            { $eq: ["$followee", new Types.ObjectId(id)] } // don't use Schema.Types.ObjectId(id)
+                            { $eq: ["$followee", "$$searchUser"] },
+                            { $eq: ["$follower", new Types.ObjectId(id)] } // don't use Schema.Types.ObjectId(id)
                         ]
                     }
                 }
