@@ -11,14 +11,14 @@ const followSlice = createSlice({
     name: "follow",
     initialState,
     reducers: {
-        setFollowers: ({ followers }, { payload }) => {
-            followers = payload;
+        setFollowers: (state, { payload }) => {
+            state.followers = payload;
         },
-        setFollowings: ({ followings }, { payload }) => {
-            followings = payload;
+        setFollowings: (state, { payload }) => {
+            state.followings = payload;
         },
-        setRequested: ({ requested }, { payload }) => {
-            requested = payload;
+        setRequested: (state, { payload }) => {
+            state.requested = payload;
         },
         setFollowBtn: (state, { payload }) => {
             state.followBtn = payload;

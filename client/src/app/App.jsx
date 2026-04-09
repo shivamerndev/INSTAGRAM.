@@ -11,7 +11,7 @@ const App = () => {
     }, [])
 
     return (
-        <div className='h-screen flex w-full bg-black text-white'>
+        <div className='min-h-screen w-full bg-black text-slate-50 antialiased'>
             <Outlet />
         </div>
     )
