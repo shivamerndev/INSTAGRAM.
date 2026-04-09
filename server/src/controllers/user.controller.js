@@ -1,4 +1,4 @@
-import { followUserService,  requestService,  searchUserService } from "../services/user.service.js";
+import { followUserService, requestService, searchUserService } from "../services/user.service.js";
 import handleError from "../utils/error.utils.js";
 
 /**
@@ -21,12 +21,15 @@ const searchUser = async (req, res) => {
 */
 
 const followUser = async (req, res) => {
+
     const { body: { followee }, userId: { id: follower } } = req;
     if (!followee || !follower || followee === follower) return res.status(400).json({ success: false, message: "SomeThing Went Wrong" })
+
     let response = await followUserService({ followee, follower })
-    console.log(response)
     if (!response) return res.send(400).json({ success: false, message: "Something Went Wrong", response })
-    res.status(200).json({ success: true, message: "Requested" })
+
+    res.status(200).json(response)
+    
 }
 
 
@@ -37,7 +40,7 @@ const followUser = async (req, res) => {
 
 const getFollowRequests = async (req, res) => {
 
-       const { id } = req.userId
+    const { id } = req.userId
 
     let requests = await requestService({ followee: id, status: "pending" })
 
@@ -47,6 +50,17 @@ const getFollowRequests = async (req, res) => {
         requests
     })
 
+}
+
+
+
+/**
+ * @method GET
+ * @params /api/user/notify 
+*/
+
+const getUserProfileData = async (req,res) => {
+    
 }
 
 export { searchUser, followUser, getFollowRequests }

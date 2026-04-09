@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit"
 let initialState = {
     followers: [],
     followings: [],
-    requested: []
+    requested: [],
+    followBtn: false
 }
 
 const followSlice = createSlice({
@@ -18,9 +19,12 @@ const followSlice = createSlice({
         },
         setRequested: ({ requested }, { payload }) => {
             requested = payload;
+        },
+        setFollowBtn: (state, { payload }) => {
+            state.followBtn = payload;
         }
     }
 })
 
-export { setFollowers, setFollowings, setRequested } from followSlice.actions;
+export const { setFollowers, setFollowings, setRequested, setFollowBtn } = followSlice.actions;
 export default followSlice.reducer;
