@@ -3,7 +3,7 @@ import { getMe, googleLogin, loginUser, logout, registerUser } from "../services
 import { setUser, setLoading } from "../stores/features/auth.slice"
 import { useNavigate } from "react-router-dom"
 
-const userAuth = () => {
+const useUserAuth = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -53,4 +53,4 @@ const userAuth = () => {
     return { handleRegister, handleLogin, handleLogout, handleGetMe, handleGoogleLogin }
 }
 
-export default userAuth
+export default useUserAuth

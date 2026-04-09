@@ -1,22 +1,14 @@
 import { useState } from "react";
-import { Heart, MessageCircle, Share2, Bookmark } from "lucide-react";
+import { Heart, MessageCircle, Share2, Bookmark, ChevronLeft, ChevronRight, StickerIcon, UserCircle } from "lucide-react";
+import { FaRegHeart, FaRegComment, FaRegPaperPlane, FaHeart } from "react-icons/fa";
 
 const PostCard = ({ post }) => {
-
+    console.log("post")
     const [mediaIndex, setMediaIndex] = useState(0);
 
-    const { user: { profileImage,username,fullName }, caption, media, likeCount, commentNumber, createdAt } = post;
+    const { user: { profileImage, username, fullName }, caption, media, likeCount, commentNumber, createdAt } = post;
 
-    const handlePrev = (e) => {
-        e.stopPropagation();
-        setMediaIndex((prev) => (prev === 0 ? media.length - 1 : prev - 1));
-    };
-    const handleNext = (e) => {
-        e.stopPropagation();
-        setMediaIndex((prev) => (prev === media.length - 1 ? 0 : prev + 1));
-    };
-
-    function timeAgo(dateString) {
+    function getTimeAgo(dateString) {
         const now = new Date();
         const date = new Date(dateString);
 
@@ -25,114 +17,134 @@ const PostCard = ({ post }) => {
         const hours = Math.floor(minutes / 60);
         const days = Math.floor(hours / 24);
 
-        if (seconds < 60) return `${seconds} seconds ago`;
-        if (minutes < 60) return `${minutes} minutes ago`;
-        if (hours < 24) return `${hours} hours ago`;
-        if (days < 7) return `${days} days ago`;
+        if (seconds < 60) return `${seconds}s ago`;
+        if (minutes < 60) return `${minutes}m ago`;
+        if (hours < 24) return `${hours}h ago`;
+        if (days < 7) return `${days}d ago`;
         return date.toLocaleDateString();
     }
 
+    let isLiked = true
+    let p = {}
+
     return (
-        <article className="bg-[#131313] rounded-xl w-10/12 mx-auto shadow-2xl border border-white/5">
-            {/* Header */}
-            <div className="flex items-center justify-between p-4">
-                <div className="flex items-center gap-3 cursor-pointer">
-                    <img
-                        className="w-10 h-10 rounded-full object-cover border border-white/10"
-                        src={profileImage}
-                        alt={username}
-                    />
-                    <div>
-                        <h3 className="text-sm font-bold text-white leading-none">{fullName}</h3>
-                        <p className="text-[11px] text-gray-500 mt-0.5">@{username}</p>
+        <div className="mt-1 w-[68%] max-h-screen bg-black rounded-lg overflow-hiden  ">
+            {/* Username */}
+            <div className="py-3 flex  items-center justify-between">
+                <div className="flex gap-2  items-center">
+                    <div onClick={() => navigate(`/stories/${username}/`)} className="w-9 h-9  rounded-full bg-linear-to-tr from-pink-500 to-yellow-500 p-px">
+                        <div className="w-full cursor-pointer  overflow-hidden  h-full bg-black rounded-full flex items-center justify-center">
+                            <img
+                                className="object-contain h-full w-full"
+                                src={profileImage}
+                                alt=""
+                            />
+                        </div>
+                    </div>
+                    <div className="font-semibold">
+                        <span onClick={() => navigate(`/${username}/`)} className="cursor-pointer text-sm">{username}</span>  •
+                        <span className="text-xs text-gray-400">
+                            {" "}{getTimeAgo(createdAt)}
+                        </span>
                     </div>
                 </div>
-                <button className="text-gray-500 hover:text-white pb-2 flex">
-                    <span className="text-xl mb-2 font-bold tracking-widest leading-none">...</span>
+                <button onClick={() => {
+                    setGotopost(post._id)
+                    setOpt(true)
+                }}
+                    className="text-xl cursor-pointer font-semibold"  >
+                    ⋯
                 </button>
             </div>
-
-            {/* Media Carousel */}
-            <figure className="w-full overflow-hidden relative group bg-neutral-900 border-y border-white/5 flex items-center justify-center" style={{ minHeight: 350 }}>
-                {media.length > 1 && (
-                    <button
-                        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black/60 hover:bg-black/80 text-white rounded-full p-1"
-                        onClick={handlePrev}
-                        aria-label="Previous image"
-                    >
-                        &#8592;
-                    </button>
-                )}
+            {/* main Image */}
+            <div className="w-full max-h-screen overflow-hidden bg-gray-700">
                 <img
-                    className="max-h-100 w-auto max-w-full object-contain transition-transform duration-700 group-hover:scale-105 mx-auto"
+                    className="max-h-[560px] w-full object-cover transition duration-700 hover:scale-[1.02]"
                     src={media[mediaIndex].url}
-                    alt={`Post media ${mediaIndex + 1}`}
                 />
-                {media.length > 1 && (
-                    <button
-                        className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black/60 hover:bg-black/80 text-white rounded-full p-1"
-                        onClick={handleNext}
-                        aria-label="Next image"
-                    >
-                        &#8594;
-                    </button>
-                )}
-                {media.length > 1 && (
-                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
-                        {media.map((_, idx) => (
-                            <span
-                                key={idx}
-                                className={`block w-2 h-2 rounded-full ${idx === mediaIndex ? "bg-[#c799ff]" : "bg-gray-500/40"}`}
-                            ></span>
-                        ))}
-                    </div>
-                )}
-            </figure>
-
-            {/* Actions & Info */}
-            <div className="p-4">
-                <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-4">
-                        <button className="text-white hover:text-[#c799ff] transition-colors">
-                            {/* Like Icon */}
-                            <Heart size={24} />
-                        </button>
-                        <button className="text-white hover:text-[#c799ff] transition-colors">
-                            {/* Comment Icon */}
-                            <MessageCircle size={24} />
-                        </button>
-                        <button className="text-white hover:text-[#c799ff] transition-colors">
-                            {/* Share Icon */}
-                            <Share2 size={24} />
-                        </button>
-                    </div>
-                    <button className="text-white hover:text-[#c799ff] transition-colors">
-                        {/* Save Icon */}
-                        <Bookmark size={24} />
-                    </button>
-                </div>
-
-                <div className="flex items-center gap-2 mb-2">
-                    <p className="text-[13px] text-white">
-                        <span className="font-bold">{likeCount}</span> {likeCount === 1 ? "like" : "likes"}
-                    </p>
-                    <span className="text-gray-500">·</span>
-                    <p className="text-[13px] text-white">
-                        <span className="font-bold">{commentNumber}</span> {commentNumber === 1 ? "comment" : "comments"}
-                    </p>
-                </div>
-                <div className="text-sm mb-2">
-                    <span className="font-bold mr-2">{username}</span>
-                    <span className="text-[#adaaaa]">{caption}</span>
-                </div>
-                <button className="text-[#767575] text-[13px] mb-2 hover:text-[#adaaaa] transition-colors">
-                    View all {commentNumber} comments
-                </button>
-                <p className="text-[10px] text-[#767575] uppercase tracking-widest font-bold">
-                    {timeAgo(createdAt)}
-                </p>
             </div>
-        </article>
+            <div className="bg--500 mt-3 h-1/2 w-full">
+                <div className="text-white h-1/2  text-sm">
+                    {/* Action Icons */}
+                    {<>
+                        <div className="flex justify-between items-center gap-8 text-xl mb-1">
+                            <div className="flex gap-5 items-center">
+                                {isLiked[p?._id] || p.likes?.includes(user._id) ? <FaHeart onClick={() => {
+                                    like(p._id)
+                                }}
+                                    className="fill-red-500 cursor-pointer transition-opacity text-2xl" /> : <FaRegHeart
+                                    onClick={() => {
+                                        like(p._id)
+                                    }}
+                                    className={`cursor-pointer transition-opacity text-2xl`} />
+                                }
+                                <svg onClick={() => {
+                                    navigate(`/p/${p._id}/`) // last opt useeffect if pop false [] pcard
+                                    setpop(p)
+                                }} aria-label="Comment" className="cursor-pointer" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24"><title>Comment</title><path d="M20.656 17.008a9.993 9.993 0 1 0-3.59 3.615L22 22Z" fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2"></path></svg>
+                                <FaRegPaperPlane className="cursor-pointer text-2xl" />
+                                {/* <FiShare2 /> */}
+                            </div>
+                            {true || user?.bookmark?.includes(p._id) ? <i onClick={() => {
+                                savep(p._id)
+                                setSave(false)
+                            }} className=" cursor-pointer ri-bookmark-fill text-2xl"></i> :
+                                <i onClick={() => {
+                                    savep(p._id)
+                                    setSave(true)
+                                }} className=" cursor-pointer ri-bookmark-line text-2xl"></i>
+                            }
+                        </div>
+                        <p className="text-sm font-semibold mb-1">
+                            {p?.likes?.length} likes
+                        </p>
+                        <p className="text-gray-400 mb-1 -mt-1 text-sm">{(getTimeAgo(post?.createdAt)).split('')[1] === 'h' ? (getTimeAgo(post?.createdAt)).split('')[0] + ' hours' : (getTimeAgo(post?.createdAt)).split('')[0] + " day"}  ago</p>
+                    </>}
+                </div>
+            </div>
+            {/* Caption */}
+            <div>
+                <div className="mb-1">
+                    <span className="font-bold">{username}</span>
+                    <span> {p?.caption}</span>
+                    <button className="text-gray-400 ml-1 text-xs cursor-pointer">more</button>
+                </div>
+                <button className="text-gray-400 text-xs mb-1">See translation</button>
+                {p?.comments?.length !== 0 && <p onClick={() => {
+                    navigate(`/post/${post._id}/`)
+                    setpop(post)
+                }} className="text-gray-400 text-sm cursor-pointer ">
+                    View all {p?.comments?.length} comments
+                </p>}
+            </div>
+
+
+            <form className="flex w-full items-center">
+                <div className="bg-red-500 w-8 h-8 shrink-0 overflow-hidden rounded-full">
+                    <img
+                        className="w-full h-full object-cover"
+                        src={profileImage}
+                        alt=""
+                    />
+                </div>
+                <div className=" w-full px-3">
+                    <input
+                        type="text"
+                        placeholder="Add a comment..."
+                        className="bg-transparent w-full text-md py-2 placeholder-gray-500 outline-none"
+                    />
+                </div>
+                <button type="submit" className="text-blue-400 font-semibold mr-1">Post</button> <UserCircle className="text-pink-500" />
+
+                {false && <div className="absolute right-4 top-10 z-10 bg-zinc-800 p-2 rounded shadow">
+                    <span className="cursor-pointer text-2xl " onClick={() => setText((prev) => (prev || "") + "😀")}>😀</span>
+                    <span className="cursor-pointer text-2xl " onClick={() => setText((prev) => (prev || "") + "😂")}>😂</span>
+                    <span className="cursor-pointer text-2xl " onClick={() => setText((prev) => (prev || "") + "😍")}>😍</span>
+                </div>}
+
+            </form>
+
+        </div>
     );
 };
 

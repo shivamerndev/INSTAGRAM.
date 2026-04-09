@@ -1,51 +1,367 @@
 import { useSelector } from "react-redux"
 import useAuth from '../hooks/userAuth'
+import { useEffect } from "react"
+import usePost from "../hooks/usePost"
+import { Link } from "react-router-dom"
 
 const Profile = () => {
-
     const { user: { profileImage, username, bio } } = useSelector(state => state.user)
     const { posts } = useSelector(state => state.posts)
-
+    const { handleGetPosts } = usePost()
     const { handleLogout } = useAuth()
 
-    return (
-        <section className="max-w-4xl mx-auto mt-12 bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-10 flex flex-col gap-10">
-            {/* Profile Header */}
-            <div className="flex flex-row items-center gap-12">
-                <figure className="w-36 h-36 rounded-full overflow-hidden border-4 border-blue-500 shadow-md">
-                    <img src={profileImage} alt="profile" className="w-full h-full object-cover" />
-                </figure>
-                <div className="flex-1 flex flex-col gap-2">
-                    <div className="flex items-center gap-4">
-                        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">{username}</h1>
-                        <button className="px-6 py-1 cursor-pointer rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow transition-colors duration-200">Follow</button>
-                        <button className="px-6 py-1 cursor-pointer rounded-lg border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 font-semibold">Edit Profile</button>
-                        <button onClick={handleLogout} className="px-6 py-1 cursor-pointer rounded-lg border border-gray-300 bg-red-500 font-semibold">Logout</button>
+    useEffect(() => {
+        if (!posts.length) handleGetPosts()
+    }, [])
 
+
+    let mediaArr = [
+        {
+            svg: (
+                <svg
+                    aria-label="Reels"
+                    fill="white"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="24"
+                >
+                    <title>Reels</title>
+                    <line
+                        fill="none"
+                        stroke="white"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        x1="2.049"
+                        x2="21.95"
+                        y1="7.002"
+                        y2="7.002"
+                    ></line>
+                    <line
+                        fill="none"
+                        stroke="white"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        x1="13.504"
+                        x2="16.362"
+                        y1="2.001"
+                        y2="7.002"
+                    ></line>
+                    <line
+                        fill="none"
+                        stroke="white"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        x1="7.207"
+                        x2="10.002"
+                        y1="2.11"
+                        y2="7.002"
+                    ></line>
+                    <path
+                        d="M2 12.001v3.449c0 2.849.698 4.006 1.606 4.945.94.908 2.098 1.607 4.946 1.607h6.896c2.848 0 4.006-.699 4.946-1.607.908-.939 1.606-2.096 1.606-4.945V8.552c0-2.848-.698-4.006-1.606-4.945C19.454 2.699 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.546 2 5.704 2 8.552Z"
+                        fill="none"
+                        stroke="white"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                    ></path>
+                    <path
+                        d="M9.763 17.664a.908.908 0 0 1-.454-.787V11.63a.909.909 0 0 1 1.364-.788l4.545 2.624a.909.909 0 0 1 0 1.575l-4.545 2.624a.91.91 0 0 1-.91 0Z"
+                        fillRule="evenodd"
+                    ></path>
+                </svg>
+            ),
+            text: "posts",
+            isbt: true,
+        },
+        {
+            svg: (
+                <svg
+                    aria-label="Reels"
+                    fill="white"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="24"
+                >
+                    <title>Reels</title>
+                    <line
+                        fill="none"
+                        stroke="white"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        x1="2.049"
+                        x2="21.95"
+                        y1="7.002"
+                        y2="7.002"
+                    ></line>
+                    <line
+                        fill="none"
+                        stroke="white"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        x1="13.504"
+                        x2="16.362"
+                        y1="2.001"
+                        y2="7.002"
+                    ></line>
+                    <line
+                        fill="none"
+                        stroke="white"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        x1="7.207"
+                        x2="10.002"
+                        y1="2.11"
+                        y2="7.002"
+                    ></line>
+                    <path
+                        d="M2 12.001v3.449c0 2.849.698 4.006 1.606 4.945.94.908 2.098 1.607 4.946 1.607h6.896c2.848 0 4.006-.699 4.946-1.607.908-.939 1.606-2.096 1.606-4.945V8.552c0-2.848-.698-4.006-1.606-4.945C19.454 2.699 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.546 2 5.704 2 8.552Z"
+                        fill="none"
+                        stroke="white"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                    ></path>
+                    <path
+                        d="M9.763 17.664a.908.908 0 0 1-.454-.787V11.63a.909.909 0 0 1 1.364-.788l4.545 2.624a.909.909 0 0 1 0 1.575l-4.545 2.624a.91.91 0 0 1-.91 0Z"
+                        fillRule="evenodd"
+                    ></path>
+                </svg>
+            ),
+            text: "reels",
+            isbt: false,
+        },
+        {
+            svg: (
+                <svg
+                    aria-label="Reels"
+                    fill="white"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="24"
+                >
+                    <title>Reels</title>
+                    <line
+                        fill="none"
+                        stroke="white"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        x1="2.049"
+                        x2="21.95"
+                        y1="7.002"
+                        y2="7.002"
+                    ></line>
+                    <line
+                        fill="none"
+                        stroke="white"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        x1="13.504"
+                        x2="16.362"
+                        y1="2.001"
+                        y2="7.002"
+                    ></line>
+                    <line
+                        fill="none"
+                        stroke="white"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        x1="7.207"
+                        x2="10.002"
+                        y1="2.11"
+                        y2="7.002"
+                    ></line>
+                    <path
+                        d="M2 12.001v3.449c0 2.849.698 4.006 1.606 4.945.94.908 2.098 1.607 4.946 1.607h6.896c2.848 0 4.006-.699 4.946-1.607.908-.939 1.606-2.096 1.606-4.945V8.552c0-2.848-.698-4.006-1.606-4.945C19.454 2.699 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.546 2 5.704 2 8.552Z"
+                        fill="none"
+                        stroke="white"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                    ></path>
+                    <path
+                        d="M9.763 17.664a.908.908 0 0 1-.454-.787V11.63a.909.909 0 0 1 1.364-.788l4.545 2.624a.909.909 0 0 1 0 1.575l-4.545 2.624a.91.91 0 0 1-.91 0Z"
+                        fillRule="evenodd"
+                    ></path>
+                </svg>
+            ),
+            text: "saved",
+            isbt: false,
+        },
+        {
+            svg: (
+                <svg
+                    aria-label="Reels"
+                    fill="white"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="24"
+                >
+                    <title>Reels</title>
+                    <line
+                        fill="none"
+                        stroke="white"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        x1="2.049"
+                        x2="21.95"
+                        y1="7.002"
+                        y2="7.002"
+                    ></line>
+                    <line
+                        fill="none"
+                        stroke="white"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        x1="13.504"
+                        x2="16.362"
+                        y1="2.001"
+                        y2="7.002"
+                    ></line>
+                    <line
+                        fill="none"
+                        stroke="white"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        x1="7.207"
+                        x2="10.002"
+                        y1="2.11"
+                        y2="7.002"
+                    ></line>
+                    <path
+                        d="M2 12.001v3.449c0 2.849.698 4.006 1.606 4.945.94.908 2.098 1.607 4.946 1.607h6.896c2.848 0 4.006-.699 4.946-1.607.908-.939 1.606-2.096 1.606-4.945V8.552c0-2.848-.698-4.006-1.606-4.945C19.454 2.699 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.546 2 5.704 2 8.552Z"
+                        fill="none"
+                        stroke="white"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                    ></path>
+                    <path
+                        d="M9.763 17.664a.908.908 0 0 1-.454-.787V11.63a.909.909 0 0 1 1.364-.788l4.545 2.624a.909.909 0 0 1 0 1.575l-4.545 2.624a.91.91 0 0 1-.91 0Z"
+                        fillRule="evenodd"
+                    ></path>
+                </svg>
+            ),
+            text: "tagged",
+            isbt: false,
+        },
+    ];
+
+    return (<div className="w-full px-24">
+
+        {/* <FollowingLists arr={followers} h1="followers" />
+                <FollowingLists arr={following} h1="following" /> */}
+
+
+        <div className="p-8 w-full border-b border-gray-700 ">
+
+            <div className="flex gap-24">
+                <div
+                    onClick={() => setPic(true)}
+                    className="w-36 h-36 rounded-full  overflow-hidden">
+                    <input
+                        type="file"
+                        id='filedata'
+                        className="hidden" />
+
+                    <label htmlFor="filedata">
+                        <img className="w-full h-full object-cover" src={profileImage} alt="" />
+                    </label>
+                </div>
+                <div className=" w-1/2 text-white">
+                    <div className="flex items-center gap-10  text-white ">
+                        <h1 className="text-xl">{username}</h1>
+                        <Link
+                            to={"/profile/edit"}
+                            className="bg-zinc-700 text-white font-semibold px-2 py-1 rounded hover:bg-blue-600 transition duration-300"
+                        >
+                            Edit Profile
+                        </Link>
+                        <div onClick={() => setLogoutpanel(true)} className="ml-16 ">
+                            <svg
+                                aria-label="Options"
+                                className="x1lliihq x1n2onr6 x5n08af"
+                                fill="white"
+                                height="24"
+                                role="img"
+                                viewBox="0 0 24 24"
+                                width="24"
+                            >
+                                <title>Options</title>
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    fill="none"
+                                    r="8.635"
+                                    stroke="white"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                ></circle>
+                                <path
+                                    d="M14.232 3.656a1.269 1.269 0 0 1-.796-.66L12.93 2h-1.86l-.505.996a1.269 1.269 0 0 1-.796.66m-.001 16.688a1.269 1.269 0 0 1 .796.66l.505.996h1.862l.505-.996a1.269 1.269 0 0 1 .796-.66M3.656 9.768a1.269 1.269 0 0 1-.66.796L2 11.07v1.862l.996.505a1.269 1.269 0 0 1 .66.796m16.688-.001a1.269 1.269 0 0 1 .66-.796L22 12.93v-1.86l-.996-.505a1.269 1.269 0 0 1-.66-.796M7.678 4.522a1.269 1.269 0 0 1-1.03.096l-1.06-.348L4.27 5.587l.348 1.062a1.269 1.269 0 0 1-.096 1.03m11.8 11.799a1.269 1.269 0 0 1 1.03-.096l1.06.348 1.318-1.317-.348-1.062a1.269 1.269 0 0 1 .096-1.03m-14.956.001a1.269 1.269 0 0 1 .096 1.03l-.348 1.06 1.317 1.318 1.062-.348a1.269 1.269 0 0 1 1.03.096m11.799-11.8a1.269 1.269 0 0 1-.096-1.03l.348-1.06-1.317-1.318-1.062.348a1.269 1.269 0 0 1-1.03-.096"
+                                    fill="none"
+                                    stroke="white"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                ></path>
+                            </svg>
+                        </div>
                     </div>
-                    <div className="flex gap-8 mt-2">
-                        <span className="text-base text-gray-700 dark:text-gray-200"><b>200</b> posts</span>
-                        <span className="text-base text-gray-700 dark:text-gray-200 cursor-pointer hover:underline"><b>2,000</b> followers</span>
-                        <span className="text-base text-gray-700 dark:text-gray-200 cursor-pointer hover:underline"><b>284</b> following</span>
+                    <div className="flex mt-6 gap-16 items-center ">
+                        <h1>{posts.length} posts</h1>
+                        <Link to={`/${username}/followers/`}>
+                            100 followers
+                        </Link>
+                        <Link to={`/${username}/following/`}>
+                            120 following
+                        </Link>
                     </div>
-                    <p className="text-gray-500 dark:text-gray-400 mt-2 max-w-lg">{bio}</p>
+                    <div className="mt-10 leading-5">
+                        <h1>{bio}</h1>
+                    </div>
                 </div>
             </div>
 
-            {/* Tabs */}
-            <div className="flex justify-center gap-12 border-b border-gray-200 dark:border-gray-700 mb-6">
-                <button className="py-2 px-6 text-lg font-semibold text-blue-600 border-b-2 border-blue-600 focus:outline-none transition-colors duration-200">Posts</button>
-                <button className="py-2 px-6 text-lg font-semibold text-gray-500 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-400 focus:outline-none transition-colors duration-200">Reels</button>
-                <button className="py-2 px-6 text-lg font-semibold text-gray-500 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-400 focus:outline-none transition-colors duration-200">Archives</button>
+            <div className="flex gap-4">
+                <div className="bg-gray-900 mt-8 w-24 h-24 rounded-full text-center text-xs content-center text-white uppercase">
+                    Highlights
+                </div>
             </div>
-            {/* Post Grid */}
-            <div id="postCards" className="grid grid-cols-3 gap-4">
-                {posts.map(p => <div key={p._id} className="aspect-square bg-linear-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-700 rounded-lg flex items-center justify-center text-gray-400 text-4xl font-bold border border-gray-100 dark:border-gray-800">
-                    <img src={p.media[0].url} alt="" />
-                </div>)}
 
-            </div>
-        </section>
+        </div>
+
+        <div className="uppercase text-white flex justify-center gap-12 text-xs font-semibold">
+            {mediaArr.map((m, i) => (
+                <div key={i} className={`flex  items-center justify-center py-4 gap-1 ${m.isbt ? 'border-t' : null} border-t-white`}>
+                    {m.svg}
+                    {m.text === 'posts' ? <Link to={`/${username}/`} >{m.text}</Link> : <Link to={`/${username}/${m.text}/`} >{m.text}</Link>}
+                </div>
+            ))}
+        </div>
+
+        <div className="mt-8 grid grid-cols-4 gap-1  ">
+
+            {posts.map((p, i) => <div key={i} className="w-55 cursor-pointer my-1 h-80 bg-blue-500"  >
+                <img src={p.media[0].url} alt="post" className="w-full h-full object-cover" />
+            </div>)}
+
+            {/* <PostPopup setPcard={setPcard} setIdx={setCurrentIdx} idx={currentIdx} arr={posts} /> */}
+
+        </div>
+
+    </div>
     )
 }
 
