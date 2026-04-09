@@ -1,4 +1,4 @@
-import { followUserService, requestService, searchUserService } from "../services/user.service.js";
+import { followUserService, profileDataService, requestService, searchUserService } from "../services/user.service.js";
 import handleError from "../utils/error.utils.js";
 
 /**
@@ -56,11 +56,13 @@ const getFollowRequests = async (req, res) => {
 
 /**
  * @method GET
- * @params /api/user/notify 
+ * @params /api/user/profile-data 
 */
 
 const getUserProfileData = async (req,res) => {
-    
+    const {id:follower} = req.userId
+    let response = await profileDataService(follower)
+    res.send(response)
 }
 
-export { searchUser, followUser, getFollowRequests }
+export { searchUser, followUser, getFollowRequests,getUserProfileData }

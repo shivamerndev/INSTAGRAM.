@@ -59,7 +59,7 @@ const PostCard = ({ post }) => {
             {/* main Image */}
             <div className="w-full max-h-screen overflow-hidden bg-gray-700">
                 <img
-                    className="max-h-[560px] w-full object-cover transition duration-700 hover:scale-[1.02]"
+                    className="h-full w-full object-cover transition duration-700 hover:scale-[1.02]"
                     src={media[mediaIndex].url}
                 />
             </div>
