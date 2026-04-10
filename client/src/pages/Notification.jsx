@@ -10,22 +10,22 @@ const Notification = () => {
         handleNotification()
     }, [])
 
+    console.log(requests)
+    
     return (
         <section className="mx-auto w-full max-w-5xl space-y-6">
-            <div className="rounded-2xl border border-white/10 bg-linear-to-br from-white/8 to-white/4 p-6 shadow-[0_24px_70px_-45px_rgba(15,23,42,0.95)] backdrop-blur-xl sm:p-8">
-                <p className="text-xs uppercase tracking-[0.3em] text-sky-200/70">Inbox updates</p>
-                <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                    <div>
-                        <h1 className="text-3xl font-semibold text-white">Notifications</h1>
-                        <p className="mt-2 text-sm text-slate-400">
-                            {requests.length > 0
-                                ? `You have ${requests.length} follow request${requests.length > 1 ? 's' : ''} waiting`
-                                : 'You are all caught up right now.'}
-                        </p>
-                    </div>
-                    <div className="rounded-full border border-sky-400/20 bg-sky-500/10 px-4 py-2 text-sm font-medium text-sky-100">
-                        Pending: {requests.length}
-                    </div>
+
+            <div className="flex items-center justify-between">
+                <div>
+                    <h1 className="text-3xl font-semibold text-white">Notifications</h1>
+                    <p className="mt-2 text-sm text-slate-400">
+                        {requests.length > 0
+                            ? `You have ${requests.length} follow request${requests.length > 1 ? 's' : ''} waiting`
+                            : 'You are all caught up right now.'}
+                    </p>
+                </div>
+                <div className="rounded-full border border-sky-400/20 bg-sky-500/10 px-4 py-2 text-sm font-medium text-sky-100">
+                    Pending: {requests.length}
                 </div>
             </div>
 

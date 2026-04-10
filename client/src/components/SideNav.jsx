@@ -10,9 +10,9 @@ const SideNavbar = () => {
     const { user } = useSelector(state => state.user)
 
     return (
-        <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className="w-54 h-full   select-none transition-all duration-300 sticky top-0 ">
+        <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className=" h-full   select-none  fixed bg-black top-0 ">
 
-            <div className=" px-4 py-8">
+            <div className=" px-4 mb-16 py-8">
                 <svg
                     aria-label="Instagram"
                     className="x1lliihq x1n2onr6 x5n08af"
@@ -29,12 +29,12 @@ const SideNavbar = () => {
 
             {NAV_CONFIG.map(({ svg, title }) => <NavLink key={title} to={title === "home" ? "/" : title} className={(e) => e.isActive ? "  w-full rounded-md hover:bg-zinc-900  flex items-center px-4 py-1 gap-4 text-white text-base" : "w-full rounded-md hover:bg-zinc-900  flex items-center px-4 py-2 gap-4 my-4 text-white text-base"}>
                 {svg}
-                {hover && <h1 className="capitalize text-base">{title}</h1>}
+                {hover && <h1 className="capitalize transition-all duration-300 text-base">{title}</h1>}
             </NavLink>)
             }
 
 
-            <NavLink to={"/"+user.username} className="flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-200 hover:bg-zinc-900 cursor-pointer group w-fit">
+            <NavLink to={"/" + user.username} className="flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-200 hover:bg-zinc-900 cursor-pointer group w-fit">
                 <figure className="h-8 w-8 rounded-full overflow-hidden border-2 border-[#c799ff] bg-[#23232a] shadow">
                     <img
                         className="object-cover h-full w-full"
