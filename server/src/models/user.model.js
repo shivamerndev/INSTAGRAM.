@@ -77,7 +77,7 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
 };
 
 userSchema.methods.generateToken = async function (data) {
-    return await jwt.sign(data, JWT_SECRET, { expiresIn: "15m" })
+    return await jwt.sign(data, JWT_SECRET, { expiresIn: "1h" })
 }
 
 export default model("User", userSchema)

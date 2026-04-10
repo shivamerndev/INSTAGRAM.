@@ -9,8 +9,10 @@ import ProtectRoutes from "../auth/user.protected"
 import PublicRoute from "../auth/user.public"
 import StoryPage from "../pages/StoryPage"
 import Profile from "../pages/Profile"
-import Message from "../pages/Message"
 import Notification from "../pages/Notification"
+import Message from "../chat/Message"
+
+
 
 const AllRoutes = createBrowserRouter([{
     element: <App />,
@@ -48,19 +50,22 @@ const AllRoutes = createBrowserRouter([{
                     element: <SearchPage />
                 },
                 {
-                    path:"/story",
-                    element:<StoryPage/>
-                },{
-                    path:"/messages",
-                    element:<Message/>
+                    path: "/story",
+                    element: <StoryPage />
+                }, {
+                    path: "/messages",
+                    element: <Message />
+                }, {
+                    path: "/messages/:chat",
+                    element: <Message />
                 },
                 {
-                    path:"/notifications",
-                    element:<Notification/>
+                    path: "/notifications",
+                    element: <Notification />
                 },
                 {
-                    path:"/:username",
-                    element:<Profile/>
+                    path: "/:username",
+                    element: <Profile />
                 }
             ]
         }
