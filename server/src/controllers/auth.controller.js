@@ -54,7 +54,7 @@ const login = handleError(async (req, res) => {
 */
 
 const createAccessToken = handleError(async (res, req) => {
-    const { id } = req.userId;
+    const { id } = req.user;
     const token = await userModel.generateToken(id)
     console.log("New Access Token", token)
 })
@@ -67,7 +67,7 @@ const createAccessToken = handleError(async (res, req) => {
 */
 
 const profile = async (req, res) => {
-    const { id } = req.userId;
+    const { id } = req.user;
     const user = await profileService(id)
     if (!user) return res.status(404).json({ success: false, message: "User Not Found" })
     res.status(200).json({ user, success: true })

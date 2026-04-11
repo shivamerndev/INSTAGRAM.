@@ -5,7 +5,7 @@ const userAuth = (req, res, next) => {
     const token = req.cookies.token
     if (!token) return res.status(400).json({ success: false, message: "Token Not Found." })
     const decoded = jwt.verify(token, JWT_SECRET)
-    req.userId = decoded;
+    req.user = decoded;
     next()
 }
 
@@ -20,7 +20,7 @@ const refreshAccessToken = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(refreshToken, JWT_REFRESH_SECRET);
-    req.userId = decoded;
+    req.user = decoded;
 
     next()
 
