@@ -1,14 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
-import userSlice from "./features/auth.slice.js"
-import postSlice from "./features/post.slice.js"
-import storySlice from "./features/story.slice.js"
-import followSlice from "./features/follow.slice.js"
+import { authSlice, postSlice, storySlice, followSlice, chatSlice } from "./features/index.js"
 
 export default configureStore({
   reducer: {
-    user: userSlice,
+    user: authSlice,
     posts: postSlice,
     stories: storySlice,
-    follows:followSlice
+    follows: followSlice,
+    chats: chatSlice
   }
 })

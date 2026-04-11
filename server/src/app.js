@@ -22,7 +22,7 @@ app.use("/api/user", userRoutes)
 app.use("/api/posts", postRoutes)
 app.use('/api/comments', commentsRoutes);
 app.use('/api/follows', followsRoutes);
-app.use('/api/messages', messagesRoutes);
+app.use('/api/chat', messagesRoutes);
 app.use('/api/likes', likesRoutes);
 app.use("/api/auth", googleRoutes)
 app.use("/api/stories", storyRoutes)

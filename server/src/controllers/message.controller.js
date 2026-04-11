@@ -5,9 +5,9 @@ import { chatUserPipeline } from "../pipelines/chatUser.pipe.js";
 const getChatUsers = async (req, res) => {
 
     let { id } = req.user;
+    let mongoseId = new Types.ObjectId(id)
 
     // const users = await followModel.find({ $or: [{ follower: id }, { followee: id }], status: "accepted" })
-    let mongoseId = new Types.ObjectId(id)
 
     const users = await followModel.aggregate(chatUserPipeline(mongoseId))
 

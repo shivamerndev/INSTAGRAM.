@@ -1,6 +1,8 @@
+import { useSelector } from 'react-redux'
 import ChatUserTile from './ChatUserTile'
 
-const ChatLeftSide = ({ suggestUser, data: { username, profileImage } }) => {
+const ChatLeftSide = ({ chatUsers, data: { username } }) => {
+
 
 
     return <div className=" text-white h-full flex-1  border-r border-zinc-800">
@@ -16,7 +18,7 @@ const ChatLeftSide = ({ suggestUser, data: { username, profileImage } }) => {
             <button className="py-2">General</button>
             <button className="py-2">Requests</button>
         </div>
-        {suggestUser.map((u, i) => <ChatUserTile key={i} user={u} image={profileImage} />)}
+        {chatUsers.map((u, i) => <ChatUserTile key={i} user={u} />)}
     </div>
 }
 

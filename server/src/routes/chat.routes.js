@@ -6,7 +6,7 @@ import { userAuth } from "../middleware/user.auth.js"
 const router = express.Router();
 
 /**
- * @method GET /api/messages/users 
+ * @method GET /api/chat/users 
 */
 
 router.get("/users", userAuth, getChatUsers)

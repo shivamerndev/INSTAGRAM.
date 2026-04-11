@@ -3,7 +3,7 @@ import { Image, Sticker } from "lucide-react"
 const ChatFooter = () => {
 
     return (
-        <div className="flex bg-red-500 items-center px-4  border-t border-zinc-800">
+        <div className="flex sticky bottom-0 py-4 items-center px-4 bg-zinc-950 border-t border-zinc-800">
             <button className="text-xl mr-2">😊</button>
             <input
                 type="text"
