@@ -6,6 +6,9 @@ import googleRoutes from "../src/routes/google.route.js"
 import passport from "passport"
 import storyRoutes from "./routes/story.routes.js";
 import morgan from "morgan"
+import http from "http"
+import connetSocket from "./io/socket.js";
+
 
 const app = express()
 
@@ -32,4 +35,7 @@ app.use((err, req, res, next) => {
     res.status(500).json({ message: err.message });
 });
 
-export default app
+const httpServer = http.createServer(app)
+connetSocket(httpServer)
+
+export default httpServer;
