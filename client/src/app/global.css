@@ -4,3 +4,7 @@
 @theme {
   --font-sans: "Space Grotesk", "Segoe UI", sans-serif;
 }
+
+.scrollbar{
+  scrollbar-width: none;
+}
