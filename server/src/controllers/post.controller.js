@@ -4,7 +4,7 @@ import handleError from "../utils/error.utils.js";
 
 const createPost = handleError(async (req, res) => {
     const { caption } = req.body
-    const { id } = req.userId
+    const { id } = req.user
     const files = req.files;
     const urls = await Promise.all(files.map(file => getMediaUrl(file)))
     let postData = await createPostService({ caption, media: urls, user: id })

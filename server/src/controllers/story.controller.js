@@ -4,7 +4,7 @@ import storyModel from '../models/story.model.js';
 // Create a new story
 const createStory = async (req, res) => {
     try {
-        const { id } = req.userId
+        const { id } = req.user
         const files = req.files;
         const urls = await Promise.all(files.map(file => getMediaUrl(file)))
 
