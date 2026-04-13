@@ -3,7 +3,7 @@ import { Heart, MessageCircle, Share2, Bookmark, ChevronLeft, ChevronRight, Stic
 import { FaRegHeart, FaRegComment, FaRegPaperPlane, FaHeart } from "react-icons/fa";
 
 const PostCard = ({ post }) => {
-    console.log("post")
+
     const [mediaIndex, setMediaIndex] = useState(0);
 
     const { user: { profileImage, username, fullName }, caption, media, likeCount, commentNumber, createdAt } = post;
