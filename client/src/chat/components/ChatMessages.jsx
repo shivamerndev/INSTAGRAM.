@@ -1,5 +1,13 @@
+import { useEffect } from 'react'
+import { connectSocket, reciveMsg } from './io/Socket'
 
 const ChatMessages = () => {
+
+
+    useEffect(() => {
+        connectSocket()
+    }, [])
+
 
 
     return (
@@ -10,7 +18,7 @@ const ChatMessages = () => {
             </div>
             <div className='scrollbar overflow-y-auto'>
 
-                {[...Array(1)].map(e => <div key={e} className="w-full flex flex-col  gap- items-end justify-end">
+                {[...Array(1)].map((e, i) => <div key={i} className="w-full flex flex-col  gap- items-end justify-end">
                     <div className="flex w-full  gap-2">
                         <img src={"profileImage"} alt="user" className="w-8 h-8 rounded-full" />
                         <p className="bg-zinc-700 px-4 rounded-2xl py-1">Hii my name is shivam</p>

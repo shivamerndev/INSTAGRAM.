@@ -1,9 +1,10 @@
 import { io } from 'socket.io-client';
 
+let URI = "http://localhost:4000";
 let socket;
 
-export const connectSocket =  () => {
-    socket = io("http://localhost:4000");
+export const connectSocket = () => {
+    socket = io(URI);
     console.log("Socket connected")
 }
 
