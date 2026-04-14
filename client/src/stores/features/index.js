@@ -1,4 +1,4 @@
-export { default as chatSlice } from "./chat.slice"
+export { default as chatSlice } from "../../chat/chat.slice.js"
 export { default as authSlice } from "./auth.slice"
 export { default as postSlice } from "./post.slice"
 export { default as followSlice } from "./follow.slice"

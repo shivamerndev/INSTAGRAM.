@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
 import { getChatUsers } from "../services/chat.service"
-import { setChatUsers } from "../stores/features/chat.slice"
+import { setChats, setChatUsers } from "./chat.slice"
 
 const useChat = () => {
 
@@ -11,7 +11,11 @@ const useChat = () => {
         dispatch(setChatUsers(res.data))
     }
 
-    return { handleGetChatUsers }
+    const handleChats = async (chat) => {
+        dispatch(setChats(chat))
+    }
+
+    return { handleGetChatUsers,handleChats }
 }
 
 export default useChat

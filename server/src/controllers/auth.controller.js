@@ -15,7 +15,7 @@ const register = handleError(async (req, res) => {
     let response = await registerService(req.body)
 
     if (!response) return res.status(400).json({ meassage: "User Already Exists.", success: false })
-    const token = await response.generateToken({ id: response._id })
+    const token = await response.generateToken({ username: response.username, id: response._id })
 
     res.cookie("token", token)
     res.status(201).json({ message: "User Registered Successfully.", success: true })
@@ -39,7 +39,7 @@ const login = handleError(async (req, res) => {
     const matchPassword = await user.comparePassword(password)
     if (!matchPassword) return res.status(401).json({ success: false, message: "Invalid Credentials" })
 
-    const token = await user.generateToken({ id: user._id })
+    const token = await user.generateToken({ username: user.username, id: user._id })
 
     res.cookie("token", token)
     res.status(200).json({ success: true, message: "LoggedIn Successfully." })

@@ -1,14 +1,10 @@
-import { useEffect } from 'react'
-import { connectSocket, reciveMsg } from './io/Socket'
+import { useSelector } from "react-redux"
 
 const ChatMessages = () => {
 
+    const chats = useSelector(store=>store.chats.chats)
 
-    useEffect(() => {
-        connectSocket()
-    }, [])
-
-
+    console.log(chats)
 
     return (
         <div className="flex justify-end  p-4 h-1/2 flex-col flex-1  ">
@@ -18,14 +14,14 @@ const ChatMessages = () => {
             </div>
             <div className='scrollbar overflow-y-auto'>
 
-                {[...Array(1)].map((e, i) => <div key={i} className="w-full flex flex-col  gap- items-end justify-end">
-                    <div className="flex w-full  gap-2">
+                {chats.map((e, i) => <div key={i} className="w-full flex flex-col  gap-4 items-end justify-end">
+                    <div className="flex w-full border-b gap-2">
                         <img src={"profileImage"} alt="user" className="w-8 h-8 rounded-full" />
-                        <p className="bg-zinc-700 px-4 rounded-2xl py-1">Hii my name is shivam</p>
+                        <p className="bg-zinc-700 px-4 rounded-2xl py-1">{e.message}</p>
                     </div>
                     <div className="flex justify-end w-full gap-2">
                         {false && <img src={"profileImage"} alt="user" className="w-8 h-8 rounded-full" />}
-                        <p className="bg-blue-400 px-4 rounded-2xl py-1">Hii my name is shivam</p>
+                        <p className="bg-blue-400 px-4 rounded-2xl py-1">{e.message}</p>
                     </div>
                 </div>)}
             </div>
@@ -35,7 +31,3 @@ const ChatMessages = () => {
 }
 
 export default ChatMessages
-
-
-
-// <p className="bg-sky-700 px-4 rounded-2xl py-1">Hello shivam</p>

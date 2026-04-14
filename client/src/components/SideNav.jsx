@@ -10,7 +10,7 @@ const SideNavbar = () => {
     const { user } = useSelector(state => state.user)
 
     return (
-        <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className=" h-full   select-none  fixed bg-black top-0 ">
+        <div onMouseEnter={() => setHover(true)} className=" h-full   select-none  fixed bg-black top-0 ">
 
             <div className=" px-4 mb-16 py-8">
                 <svg
@@ -29,7 +29,7 @@ const SideNavbar = () => {
 
             {NAV_CONFIG.map(({ svg, title }) => <NavLink key={title} to={title === "home" ? "/" : title} className={(e) => e.isActive ? "  w-full rounded-md hover:bg-zinc-900  flex items-center px-4 py-1 gap-4 text-white text-base" : "w-full rounded-md hover:bg-zinc-900  flex items-center px-4 py-2 gap-4 my-4 text-white text-base"}>
                 {svg}
-                {hover && <h1 className="capitalize transition-all duration-300 text-base">{title}</h1>}
+                {hover && <h1 onMouseEnter={() => setHover(false)} className="capitalize transition-all duration-300 text-base">{title}</h1>}
             </NavLink>)
             }
 

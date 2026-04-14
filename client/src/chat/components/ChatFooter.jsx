@@ -1,8 +1,9 @@
 import { Image, SendIcon, Sticker } from "lucide-react"
-import { emitMsg } from "../io/Socket"
+import { useState } from "react"
 
-const ChatFooter = ({ state: { input, setInput } }) => {
+const ChatFooter = ({ sendMessage }) => {
 
+    const [input, setInput] = useState("")
 
     return (
         <div className="flex sticky bottom-0 py-4 items-center px-4 bg-zinc-950 border-t border-zinc-800">
@@ -17,8 +18,7 @@ const ChatFooter = ({ state: { input, setInput } }) => {
                     placeholder="Message..."
                 />
                 {input && <SendIcon onClick={() => {
-                    emitMsg("client", input)
-                    setInput("")
+                    sendMessage(input)
                 }} className="text-sky-400 cursor-pointer absolute right-4 top-2 text-base" />}
             </div>
             <div className="flex gap-3 text-xl ml-4">
