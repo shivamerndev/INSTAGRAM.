@@ -4,7 +4,7 @@ let URI = "http://localhost:4000";
 let socket;
 
 export const connectSocket = () => {
-    socket = io(URI);
+    socket = io(URI,{withCredentials:true});
     console.log("Socket connected")
 }
 

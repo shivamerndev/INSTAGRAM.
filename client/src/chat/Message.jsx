@@ -1,37 +1,41 @@
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import { useState } from "react"
 import ChatHeader from "./components/ChatHeader"
 import ChatFooter from "./components/ChatFooter"
 import ChatMessages from "./components/ChatMessages"
 import { useEffect } from "react"
 import useChat from "./useChat"
 import ChatUserTile from "./components/ChatUserTile"
+import { connectSocket, emitMsg, reciveMsg } from './io/Socket'
 
 const Message = () => {
 
   const { chat } = useParams()
-  const [input, setInput] = useState("")
 
-  const { handleGetChatUsers } = useChat()
+  const { handleGetChatUsers, handleChats } = useChat()
   const { user: { username, profileImage } } = useSelector(store => store.user)
-  const { chatUsers } = useSelector(store => store.chats)
+  const chatUsers = useSelector(store => store.chats.chatUsers)
 
 
   useEffect(() => {
     handleGetChatUsers()
+    connectSocket()
   }, [])
 
 
   useEffect(() => {
-    reciveMsg("server", (msg) => {
-      console.log(msg)
+    reciveMsg("receive_message", (msg) => {
+      handleChats(msg)
     })
   }, [])
 
+  const sendMessage = (input) => {
+    handleChats({ message: input, receiver: chat })
+    emitMsg("send_message", { message: input, receiver: chat })
+  }
+
 
   return <div className="w-full flex bg-black/50 h-full ">
-
 
     <div className=" text-white h-full flex-1  border-r border-zinc-800">
       <div className="flex flex-col justify-between px-4 py-3 border-b border-zinc-800">
@@ -51,7 +55,7 @@ const Message = () => {
 
           <ChatHeader data={{ username, profileImage }} />
           <ChatMessages />
-          <ChatFooter state={{ input, setInput }} />
+          <ChatFooter sendMessage={sendMessage} />
 
         </div>
       </div>
