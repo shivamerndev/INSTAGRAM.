@@ -10,7 +10,7 @@ const SideNavbar = () => {
     const { user } = useSelector(state => state.user)
 
     return (
-        <div onMouseEnter={() => setHover(true)} className=" h-full   select-none  fixed bg-black top-0 ">
+        <div onMouseEnter={() => setHover(true)} onMouseLeave={()=>setHover(false)} className=" h-full   select-none  fixed bg-black top-0 ">
 
             <div className=" px-4 mb-16 py-8">
                 <svg

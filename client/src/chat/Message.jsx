@@ -30,8 +30,8 @@ const Message = () => {
   }, [])
 
   const sendMessage = (input) => {
-    handleChats({ message: input, receiver: chat })
-    emitMsg("send_message", { message: input, receiver: chat })
+    handleChats({ message: input, receiver: chat, sender: username })
+    emitMsg("send_message", { message: input, receiver: chat, sender: username })
   }
 
 
@@ -53,8 +53,8 @@ const Message = () => {
       <div className="flex-3">
         <div className="flex flex-col justify-between h-screen  text-white w-full">
 
-          <ChatHeader data={{ username, profileImage }} />
-          <ChatMessages />
+          <ChatHeader />
+          <ChatMessages username={username} />
           <ChatFooter sendMessage={sendMessage} />
 
         </div>
