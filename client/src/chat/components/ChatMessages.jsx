@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux"
 
-const ChatMessages = () => {
+const ChatMessages = ({ username }) => {
 
-    const chats = useSelector(store=>store.chats.chats)
+    const chats = useSelector(store => store.chats.chats)
 
     console.log(chats)
 
@@ -15,13 +15,9 @@ const ChatMessages = () => {
             <div className='scrollbar overflow-y-auto'>
 
                 {chats.map((e, i) => <div key={i} className="w-full flex flex-col  gap-4 items-end justify-end">
-                    <div className="flex w-full border-b gap-2">
-                        <img src={"profileImage"} alt="user" className="w-8 h-8 rounded-full" />
-                        <p className="bg-zinc-700 px-4 rounded-2xl py-1">{e.message}</p>
-                    </div>
-                    <div className="flex justify-end w-full gap-2">
-                        {false && <img src={"profileImage"} alt="user" className="w-8 h-8 rounded-full" />}
-                        <p className="bg-blue-400 px-4 rounded-2xl py-1">{e.message}</p>
+                    <div className={"flex w-full border- gap-2 my-2" + (e.sender === username ? " justify-end " : "")}>
+                        {e.sender !== username && <img src={"profileImage"} alt="user" className="w-8 h-8 rounded-full" />}
+                        <p className={" px-4 rounded-2xl py-1" + (e.sender === username ? " bg-blue-400" : " bg-zinc-700")}>{e.message}</p>
                     </div>
                 </div>)}
             </div>
@@ -31,3 +27,8 @@ const ChatMessages = () => {
 }
 
 export default ChatMessages
+
+//  <div className="flex w-full gap-2">
+//                     {false && <img src={"profileImage"} alt="user" className="w-8 h-8 rounded-full" />}
+//                     <p className=" px-4 rounded-2xl py-1">{e.message}</p>
+//                 </div>

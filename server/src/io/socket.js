@@ -16,15 +16,15 @@ io.on('connection', (socket) => {
 
     console.log('A user connected');
 
-    socket.join(socket.user.username)
+    let connectedUser = socket.user.username;
+
+    socket.join(connectedUser)
 
     socket.on("send_message", data => {
 
         const { message, receiver } = data
-        io.to(receiver).emit("receive_message", {
-            message,
-            sender: socket.user.username,
-        })
+
+        io.to(receiver).emit("receive_message", { message, sender: connectedUser })
     })
 
     socket.on('disconnect', () => {
