@@ -19,6 +19,7 @@ const ChatFooter = ({ sendMessage }) => {
                 />
                 {input && <SendIcon onClick={() => {
                     sendMessage(input)
+                    setInput("")
                 }} className="text-sky-400 cursor-pointer absolute right-4 top-2 text-base" />}
             </div>
             <div className="flex gap-3 text-xl ml-4">

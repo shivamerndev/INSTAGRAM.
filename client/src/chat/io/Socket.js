@@ -5,7 +5,7 @@ let socket;
 
 export const connectSocket = () => {
     socket = io(URI,{withCredentials:true});
-    console.log("Socket connected")
+    // console.log("Socket connected")
 }
 
 export const reciveMsg = (event, callback) => {

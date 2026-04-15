@@ -22,14 +22,14 @@ const searchUser = async (req, res) => {
 
 const followUser = async (req, res) => {
 
-    const { body: { followee }, userId: { id: follower } } = req;
+    const { body: { followee }, user: { id: follower } } = req;
     if (!followee || !follower || followee === follower) return res.status(400).json({ success: false, message: "SomeThing Went Wrong" })
 
     let response = await followUserService({ followee, follower })
     if (!response) return res.send(400).json({ success: false, message: "Something Went Wrong", response })
 
     res.status(200).json(response)
-    
+
 }
 
 
@@ -59,10 +59,10 @@ const getFollowRequests = async (req, res) => {
  * @params /api/user/profile-data 
 */
 
-const getUserProfileData = async (req,res) => {
-    const {id:follower} = req.user
+const getUserProfileData = async (req, res) => {
+    const { id: follower } = req.user
     let response = await profileDataService(follower)
     res.send(response)
 }
 
-export { searchUser, followUser, getFollowRequests,getUserProfileData }
+export { searchUser, followUser, getFollowRequests, getUserProfileData }

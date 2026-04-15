@@ -12,26 +12,31 @@ const Message = () => {
 
   const { chat } = useParams()
 
-  const { handleGetChatUsers, handleChats } = useChat()
-  const { user: { username, profileImage } } = useSelector(store => store.user)
+  const { handleGetChatUsers, handleGetMessages, handleAppendChats } = useChat()
+  const { _id: loggedInuserId, username } = useSelector(store => store.user.user)
   const chatUsers = useSelector(store => store.chats.chatUsers)
 
 
   useEffect(() => {
     handleGetChatUsers()
     connectSocket()
+    reciveMsg("receive_message", (msg) => handleAppendChats(msg))
   }, [])
 
 
   useEffect(() => {
-    reciveMsg("receive_message", (msg) => {
-      handleChats(msg)
-    })
-  }, [])
+    if (chat) {
+      handleGetMessages(chat)
+    }
+  }, [chat])
+
 
   const sendMessage = (input) => {
-    handleChats({ message: input, receiver: chat, sender: username })
-    emitMsg("send_message", { message: input, receiver: chat, sender: username })
+
+    let newObj = { message: input, receiver: chat, sender: loggedInuserId }
+
+    handleAppendChats(newObj)
+    emitMsg("send_message", newObj)
   }
 
 
@@ -54,7 +59,7 @@ const Message = () => {
         <div className="flex flex-col justify-between h-screen  text-white w-full">
 
           <ChatHeader />
-          <ChatMessages username={username} />
+          <ChatMessages username={loggedInuserId} />
           <ChatFooter sendMessage={sendMessage} />
 
         </div>

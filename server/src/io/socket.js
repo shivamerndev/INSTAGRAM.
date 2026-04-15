@@ -2,6 +2,7 @@ import { Server } from "socket.io"
 import http from "http"
 import app from "../app.js"
 import socketAuth from "./socket.auth.js";
+import messageModel from "../models/message.model.js"
 
 
 const httpServer = http.createServer(app)
@@ -16,7 +17,7 @@ io.on('connection', (socket) => {
 
     console.log('A user connected');
 
-    let connectedUser = socket.user.username;
+    let connectedUser = socket.user.id;
 
     socket.join(connectedUser)
 
@@ -25,6 +26,14 @@ io.on('connection', (socket) => {
         const { message, receiver } = data
 
         io.to(receiver).emit("receive_message", { message, sender: connectedUser })
+
+        let chat = new messageModel({
+            sender: connectedUser,
+            receiver,
+            content:message
+        })
+
+        chat.save()
     })
 
     socket.on('disconnect', () => {

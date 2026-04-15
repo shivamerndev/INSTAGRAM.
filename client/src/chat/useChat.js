@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
-import { getChatUsers } from "../services/chat.service"
-import { setChats, setChatUsers, setCurrentUser } from "./chat.slice"
+import { getChatUsers, getMessages } from "./chat.service"
+import { setChats, setChatUsers, setCurrentUser, appendChats } from "./chat.slice"
 
 const useChat = () => {
 
@@ -11,15 +11,17 @@ const useChat = () => {
         dispatch(setChatUsers(res.data))
     }
 
-    const handleSetCurrentUser = async (user)=>{
-        dispatch(setCurrentUser(user))
+    const handleGetMessages = async (receiverId) => {
+        let res = await getMessages(receiverId)
+        dispatch(setCurrentUser(res.data.chatUser))
+        dispatch(setChats(res.data.chats))
     }
 
-    const handleChats = async (chat) => {
-        dispatch(setChats(chat))
+    const handleAppendChats = async (chat) => {
+        dispatch(appendChats(chat))
     }
 
-    return { handleGetChatUsers, handleSetCurrentUser, handleChats }
+    return { handleGetChatUsers, handleGetMessages, handleAppendChats }
 }
 
 export default useChat
