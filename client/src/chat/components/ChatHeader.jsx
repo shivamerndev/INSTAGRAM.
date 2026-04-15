@@ -1,12 +1,18 @@
-import { InfoIcon, LucidePhoneCall, VideoIcon } from "lucide-react"
+import { InfoIcon, Loader, LucidePhoneCall, VideoIcon } from "lucide-react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 const ChatHeader = () => {
 
     const navigate = useNavigate()
-    const {  username, profileImage } = useSelector(store => store.chats?.currentUser)
+    const chatUser = useSelector(store => store.chats.currentUser)
 
+
+    if (!chatUser) {
+        return null
+    }
+
+    const { username, profileImage, fullName } = chatUser
 
     return (
         <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-800">

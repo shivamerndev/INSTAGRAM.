@@ -1,5 +1,5 @@
 import express from 'express';
-import { getChatUsers } from '../controllers/message.controller.js';
+import { getChatUsers, getMessages } from '../controllers/message.controller.js';
 import { userAuth } from "../middleware/user.auth.js"
 
 
@@ -10,6 +10,13 @@ const router = express.Router();
 */
 
 router.get("/users", userAuth, getChatUsers)
+
+
+/**
+ * @method GET /api/chat/:receiverId
+*/
+
+router.get("/:receiverId", userAuth, getMessages)
 
 
 export default router;

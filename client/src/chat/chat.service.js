@@ -4,4 +4,8 @@ const getChatUsers = () => {
     return axiosUtility.get("/chat/users")
 }
 
-export { getChatUsers }
+const getMessages = (receiverId) => {
+    return axiosUtility.get("/chat/" + receiverId)
+}
+
+export { getChatUsers,getMessages }
