@@ -6,7 +6,8 @@ import googleRoutes from "../src/routes/google.route.js"
 import passport from "passport"
 import storyRoutes from "./routes/story.routes.js";
 import morgan from "morgan"
-
+import { frontendPath } from "./frontend.js"
+import serverToClient from './frontend.js'
 
 const app = express()
 
@@ -17,7 +18,9 @@ app.use(express.urlencoded({ extended: true }))
 app.use(parser())
 app.use(cors({ origin: "http://localhost:5173", methods: ["POST", "GET", "PUT", "PATCH", "DELETE"], credentials: true }))
 
-
+app.get("/api/check", (req, res) => {
+    res.send("Hello Lucy HOw ARe You?")
+})
 app.use("/api/auth", authRoutes)
 app.use("/api/user", userRoutes)
 app.use("/api/posts", postRoutes)
@@ -28,14 +31,8 @@ app.use('/api/likes', likesRoutes);
 app.use("/api/auth", googleRoutes)
 app.use("/api/stories", storyRoutes)
 
-app.use(express.static("public"))
-
-app.get("*name", (req, res) => {
-
-    console.log(req.params.name)
-
-    res.sendFile("index.html", { root: "public" });
-})
+app.use(express.static(frontendPath));
+app.get(/.*/, serverToClient); // last
 
 app.use((err, req, res, next) => {
     res.status(500).json({ message: err.message });
