@@ -28,6 +28,14 @@ app.use('/api/likes', likesRoutes);
 app.use("/api/auth", googleRoutes)
 app.use("/api/stories", storyRoutes)
 
+app.use(express.static("public"))
+
+app.get("*name", (req, res) => {
+
+    console.log(req.params.name)
+
+    res.sendFile("index.html", { root: "public" });
+})
 
 app.use((err, req, res, next) => {
     res.status(500).json({ message: err.message });
