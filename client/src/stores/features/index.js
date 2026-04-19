@@ -1,5 +1,6 @@
 export { default as chatSlice } from "../../chat/chat.slice.js"
 export { default as authSlice } from "./auth.slice"
+export { default as userSlice } from "./user.slice.js"
 export { default as postSlice } from "./post.slice"
 export { default as followSlice } from "./follow.slice"
 export { default as storySlice } from "./story.slice"

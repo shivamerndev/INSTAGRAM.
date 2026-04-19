@@ -27,9 +27,13 @@ const requestService = async (data) => {
 }
 
 const profileDataService = async (id) => {
-    const followerCount = await followModel.countDocuments({ follower:id })
-    const followeeCount = await followModel.countDocuments({ followee:id })
+    const followerCount = await followModel.countDocuments({ follower: id })
+    const followeeCount = await followModel.countDocuments({ followee: id })
     return { followerCount, followeeCount }
 }
 
-export { searchUserService, followUserService, requestService, profileDataService }
+const userProfile = async (username) => {
+    return await userModel.findOne({ username }).select("fullName username profileImage isPrivate bio")
+}
+
+export { searchUserService, followUserService, requestService, profileDataService, userProfile }

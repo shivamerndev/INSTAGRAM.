@@ -18,9 +18,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(parser())
 app.use(cors({ origin: "http://localhost:5173", methods: ["POST", "GET", "PUT", "PATCH", "DELETE"], credentials: true }))
 
-app.get("/api/check", (req, res) => {
-    res.send("Hello Lucy HOw ARe You?")
-})
+
 app.use("/api/auth", authRoutes)
 app.use("/api/user", userRoutes)
 app.use("/api/posts", postRoutes)
@@ -32,7 +30,7 @@ app.use("/api/auth", googleRoutes)
 app.use("/api/stories", storyRoutes)
 
 app.use(express.static(frontendPath));
-app.get(/.*/, serverToClient); // last
+app.get(/.*/, serverToClient);
 
 app.use((err, req, res, next) => {
     res.status(500).json({ message: err.message });

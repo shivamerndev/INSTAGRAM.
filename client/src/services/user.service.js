@@ -6,6 +6,10 @@ const searchUser = handleError(async (query) => {
     return await axiosUtility.get(`/user/search?text=${query}`)
 })
 
+const userProfile = handleError(async (username) => {
+    return await axiosUtility.get("/user/"+username)
+})
+
 const followUser = handleError(async (data) => {
     return await axiosUtility.post("/user/follow", data)
 })
@@ -15,4 +19,4 @@ const notification = handleError(async () => {
 })
 
 
-export { searchUser, followUser, notification }
+export { searchUser, followUser, notification, userProfile }
