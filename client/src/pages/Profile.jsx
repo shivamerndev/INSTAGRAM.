@@ -2,17 +2,28 @@ import { useSelector } from "react-redux"
 import useAuth from '../hooks/userAuth'
 import { useEffect } from "react"
 import usePost from "../hooks/usePost"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
+import useUser from "../hooks/useUser"
 
 const Profile = () => {
-    const { user: { profileImage, username, bio } } = useSelector(state => state.user)
+
+    const { username: id } = useParams()
+    console.log(id)
+    const { user: { profileImage, username, bio } } = useSelector(state => state.auth)
     const { posts } = useSelector(state => state.posts)
+    const { profile } = useSelector(store => store.user.profile)
     const { handleGetPosts } = usePost()
     const { handleLogout } = useAuth()
+    const { getUserProfile } = useUser()
 
     useEffect(() => {
         if (!posts.length) handleGetPosts()
-    }, [])
+
+        if (id) {
+            getUserProfile(id)
+        }
+    }, [id])
+    console.log(profile)
 
 
     let mediaArr = [

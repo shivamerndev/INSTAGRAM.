@@ -1,6 +1,6 @@
 import express from 'express';
 import { userAuth } from '../middleware/user.auth.js';
-import { followUser, getFollowRequests, getUserProfileData, searchUser } from '../controllers/user.controller.js';
+import { followUser, getFollowRequests, getUserProfile, getUserProfileData, searchUser } from '../controllers/user.controller.js';
 
 const router = express.Router();
 
@@ -14,6 +14,9 @@ router.post('/follow', userAuth, followUser);
 router.get("/follow-requests", userAuth, getFollowRequests)
 
 // GET /api/user/profile-data
-router.get("/profile-data",userAuth,getUserProfileData)
+router.get("/profile-data", userAuth, getUserProfileData)
+
+// GET /api/user/user-profile
+router.get("/:username", userAuth, getUserProfile)
 
 export default router;

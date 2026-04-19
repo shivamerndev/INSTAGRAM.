@@ -1,4 +1,4 @@
-import { followUserService, profileDataService, requestService, searchUserService } from "../services/user.service.js";
+import { followUserService, profileDataService, requestService, searchUserService, userProfile } from "../services/user.service.js";
 import handleError from "../utils/error.utils.js";
 
 /**
@@ -65,4 +65,12 @@ const getUserProfileData = async (req, res) => {
     res.send(response)
 }
 
-export { searchUser, followUser, getFollowRequests, getUserProfileData }
+const getUserProfile = async (req, res) => {
+    const { username } = req.params;
+
+    let data = await userProfile(username)
+
+    res.status(200).json({ success: true, message: "Profile Fetched Successfully", user: data })
+}
+
+export { searchUser, followUser, getFollowRequests, getUserProfileData, getUserProfile }
