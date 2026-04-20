@@ -3,7 +3,7 @@ import { useSelector } from "react-redux"
 const ChatMessages = ({ username }) => {
 
     const chats = useSelector(store => store.chats.chats)
-
+    const currentUser = useSelector(store => store.chats.currentUser)
 
     return (chats.length ?
         <div className="flex justify-end  p-4 h-1/2 flex-col flex-1  ">
@@ -15,7 +15,7 @@ const ChatMessages = ({ username }) => {
 
                 {chats.map((e, i) => <div key={i} className="w-full flex flex-col  gap-4 items-end justify-end">
                     <div className={"flex w-full border- gap-2 my-2" + (e.sender === username ? " justify-end " : "")}>
-                        {e.sender !== username && <img src={"profileImage"} alt="user" className="w-8 h-8 rounded-full" />}
+                        {e.sender !== username && <img src={currentUser.profileImage} alt="user" className="w-8 h-8 rounded-full" />}
                         <p className={" px-4 rounded-2xl py-1" + (e.sender === username ? " bg-blue-400" : " bg-zinc-700")}>{e.content || e.message}</p>
                     </div>
                 </div>)}

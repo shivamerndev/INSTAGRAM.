@@ -1,9 +1,11 @@
 FROM node:20
 
-COPY ./package.json ./
+WORKDIR /app
+
+COPY /package.json /app
 
 RUN npm install
 
-COPY . .
+COPY . /app
 
 CMD ["node","./server/server.js"]

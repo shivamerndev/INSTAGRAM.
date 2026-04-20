@@ -5,7 +5,7 @@ import { setSelectedStory, setStories } from "../stores/features/story.slice"
 import { useDispatch, useSelector } from 'react-redux'
 
 const Stories = () => {
-    const { user: { fullName, profileImage, username } } = useSelector(state => state.user)
+    const { fullName, profileImage, username } = useSelector(state => state.auth.user)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { stories } = useSelector(state => state.stories)

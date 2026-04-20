@@ -4,7 +4,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 
 const PublicRoute = () => {
 
-    const { user } = useSelector(state => state.user)
+    const  user  = useSelector(state => state.auth.user)
     const navigate = useNavigate()
 
     useEffect(() => {

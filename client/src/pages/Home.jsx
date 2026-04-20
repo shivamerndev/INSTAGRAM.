@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   const { handleGetPosts } = usePost()
-  const { posts } = useSelector(state => state.posts)
-  const { user } = useSelector(state => state.user)
+  const posts = useSelector(state => state.posts.posts)
+  const user = useSelector(state => state.auth.user)
 
   useEffect(() => {
     handleGetPosts()

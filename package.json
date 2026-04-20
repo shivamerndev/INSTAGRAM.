@@ -1,10 +1,10 @@
 {
   "name": "instagram-kodr",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "./server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx nodemon ./server/server.js",
+    "dev": "nodemon ./server/server.js",
     "build": "pnpm install && pnpm install --prefix client  && npm run build --prefix client",
     "start": "node ./server/server.js"
   },
@@ -30,5 +30,8 @@
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "socket.io": "^4.8.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
