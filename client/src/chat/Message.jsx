@@ -13,7 +13,7 @@ const Message = () => {
   const { chat } = useParams()
 
   const { handleGetChatUsers, handleGetMessages, handleAppendChats } = useChat()
-  const { _id: loggedInuserId, username } = useSelector(store => store.user.user)
+  const { _id: loggedInuserId, username } = useSelector(store => store.auth.user)
   const chatUsers = useSelector(store => store.chats.chatUsers)
 
 
@@ -49,7 +49,7 @@ const Message = () => {
       </div>
 
       <div className="flex justify-around mb-4 text-sm text-gray-400 border-b border-zinc-800">
-        {["primary", "General", "Requests"].map(e => <button key={e} className="py-2 border-b-2 border-white font-semibold text-white"> {e}</button>)}
+        {["primary", "General", "Requests"].map(e => <button key={e} className={"py-2  border-white font-semibold text-white " + (e === "primary" && "border-b-2")}> {e}</button>)}
       </div>
       {chatUsers.map((u, i) => <ChatUserTile key={i} user={u} />)}
     </div>

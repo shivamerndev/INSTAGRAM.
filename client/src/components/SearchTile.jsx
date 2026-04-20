@@ -8,7 +8,7 @@ const SearchTile = ({ user }) => {
     const navigate = useNavigate()
 
     const [followStatus, setFollow] = useState("Follow")
-    const { username } = useSelector(state => state.user.user)
+    const { username } = useSelector(state => state.auth.user)
 
     return (
         <div

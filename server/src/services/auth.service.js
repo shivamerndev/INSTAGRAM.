@@ -17,7 +17,7 @@ const loginService = async (data) => {
 }
 
 const profileService = async (id) => {
-    return await userModel.findById(id)
+    return await userModel.findById(id).select("username profileImage")
 }
 
 const logoutSerivice = () => {

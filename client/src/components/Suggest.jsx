@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Suggest = () => {
 
-    const { user } = useSelector(state => state.user)
+    const  user  = useSelector(state => state.auth.user)
 
     let suggestUser = [{ username: "lund" }, { username: "lund" }]
     let followStates = {}
@@ -13,7 +13,7 @@ const Suggest = () => {
             <div className="w-10 h-10 rounded-full overflow-hidden">
                 <img
                     className="object-cover h-full w-full"
-                    src={user.profilepicture}
+                    src={user.profileImage}
                     alt=""
                 />
             </div>
