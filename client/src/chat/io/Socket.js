@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-let URI = "http://localhost:4000";
+let URI = "/socket.io";
 let socket;
 
 export const connectSocket = () => {
