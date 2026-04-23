@@ -1,21 +1,28 @@
-# use node image
+#Stage 1: Build the frontend
+FROM node:20 AS frontend_builder
+
+WORKDIR /app
+
+COPY ./client/package*.json /app
+
+RUN npm install
+
+COPY ./client /app
+
+RUN npm run build
+# create an dist /app/dist
+
+#Stage 2: Final Stage
 FROM node:20
 
 WORKDIR /app
 
-# copy package files first (for caching)
-COPY package*.json ./
-COPY client/package*.json ./client/
-
+COPY ./server/package*.json /app
 
 RUN npm install
-RUN npm install --prefix client
 
+COPY ./server /app
 
-COPY . .
+COPY --from=frontend_builder /app/dist /app/public
 
-# build react client
-RUN npm run build --prefix client
-
-# start server
-CMD ["npm", "start"]
+CMD ["node","server.js"]
