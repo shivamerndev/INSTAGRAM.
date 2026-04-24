@@ -23,6 +23,7 @@ RUN npm install
 
 COPY ./server /app
 
-COPY --from=frontend_builder /app/dist /app/public
+#if i don't want to move dist into the server then what i will do?
+COPY --from=frontend_builder /app/dist /app/public  
 
 CMD ["node","server.js"]
