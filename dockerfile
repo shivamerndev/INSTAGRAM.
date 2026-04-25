@@ -1,29 +1,27 @@
-#Stage 1: Build the frontend
-FROM node:20 AS frontend_builder
+FROM node:20-alpine As frontend_builder
 
-WORKDIR /app
+WORKDIR /client
 
-COPY ./client/package*.json /app
+COPY ./client/package*.json /client
 
 RUN npm install
 
-COPY ./client /app
+COPY ./client /client
 
 RUN npm run build
-# create an dist /app/dist
 
-#Stage 2: Final Stage
-FROM node:20
+# Stage 2
 
-WORKDIR /app
+FROM node:20-alpine
 
-COPY ./server/package*.json /app
+WORKDIR /server
+
+COPY ./server/package*.json /server
 
 RUN npm install
 
-COPY ./server /app
+COPY ./server /server
 
-#if i don't want to move dist into the server then what i will do?
-COPY --from=frontend_builder /app/dist /app/public  
+COPY --from=frontend_builder /client/dist /server/public
 
-CMD ["node","server.js"]
+CMD [ "node","server.js" ]
