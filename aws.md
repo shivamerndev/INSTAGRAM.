@@ -10,9 +10,6 @@ CREATE SERVICE => Cluster => Select A Cluster => Create Service => NETWORKING =>
 
 
 
-
-
-
 // AWS Task DEFINATION
 
 {

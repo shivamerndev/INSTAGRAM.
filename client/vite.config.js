@@ -9,12 +9,12 @@ export default defineConfig({
     host: "0.0.0.0",
     proxy: {
       "/api": {
-        target: "http://server:4000",
+        target: "http://localhost:4000",
         changeOrigin: true,
         secure: false
       },
       "/socket.io": {
-        target: "http://server:4000",
+        target: "http://localhost:4000",
         changeOrigin: true,
         secure: false
       }
