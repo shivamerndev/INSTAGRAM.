@@ -11,7 +11,7 @@ import StoryPage from "../pages/StoryPage"
 import Profile from "../pages/Profile"
 import Notification from "../pages/Notification"
 import Message from "../chat/Message"
-import VideoCall from "../chat/video/VideoCall.jsx"
+// import VideoCall from "../chat/video/VideoCall.jsx"
 
 
 
@@ -60,10 +60,10 @@ const AllRoutes = createBrowserRouter([{
                     path: "/messages/:chat",
                     element: <Message />
                 },
-                {
-                    path: "/video-call",
-                    element: <VideoCall />
-                },
+                // {
+                //     path: "/video-call",
+                //     element: <VideoCall />
+                // },
                 {
                     path: "/notifications",
                     element: <Notification />
